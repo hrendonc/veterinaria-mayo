@@ -1,3 +1,4 @@
+const number = require('@hapi/joi/lib/types/number');
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -6,7 +7,7 @@ const ventaSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    productos: [
+    productos: [ 
         { 
             codigo: {
                 type: Number

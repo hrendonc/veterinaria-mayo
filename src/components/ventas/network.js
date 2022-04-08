@@ -3,10 +3,6 @@ const response = require('../../network/response')
 const controller = require('./controller')
 const router = express.Router()
 
-router.post('/myventa', (req, res)=>{
-    console.log(req.body)
-})
-
 router.post('/:userId/venta', (req, res)=>{
     controller.addVenta(req)
     .then((fullVenta)=>{

@@ -8,15 +8,15 @@ const templateCarrito = document.getElementById('template-carrito').content
 const fragment = document.createDocumentFragment()
 
 let carrito = {}
-let productos = []
+let productos = []  // Guarda los productos de la API
+let enviarProductos = [] //Productos a enviar a la API
+let objeto = {}
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    //fetchData()
     apiProductos()
 
     if (localStorage.getItem('carrito')) {
         carrito = JSON.parse(localStorage.getItem('carrito'))
-        // console.log(carrito)
         pintarCarrito()
     }
 })
@@ -42,6 +42,7 @@ form.addEventListener('submit', e=>{
         new FormData(e.target)
     )
     setCarrito(data)
+    form.reset()
 })
 
 items.addEventListener('click', e =>{
@@ -65,7 +66,6 @@ const setCarrito = objeto=>{
             }
 
             carrito[newProducto.id] = {...newProducto}
-                // console.log(carrito)
             pintarCarrito()
             return
         }        
@@ -88,6 +88,7 @@ const pintarCarrito = ()=>{
     pintarFooter()
 
     localStorage.setItem('carrito', JSON.stringify(carrito))
+    form.reset()
 }
 
 const pintarFooter = ()=>{
@@ -111,49 +112,36 @@ const pintarFooter = ()=>{
     const btnVaciar = document.getElementById('vaciar-carrito')
     btnVaciar.addEventListener('click', ()=>{
         carrito = {}
+        pintarCarrito()        
+    })
+}
+
+const btnVender = document.getElementById('vender-carrito')
+    btnVender.addEventListener('click', ()=>{      
+
+        for(x in carrito){
+            enviarProductos.push(carrito[x])
+        }
+
+        objeto = {
+            productos: enviarProductos
+        }   
+
+        saveCarrito(objeto)
+        carrito = {}
+        objeto = {}
+        enviarProductos = []
+        form.reset()
         pintarCarrito()
     })
 
-    const btnVender = document.getElementById('vender-carrito')
-    btnVender.addEventListener('click', ()=>{
-        
-        const lasCabeceras = new Headers({
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          });
-          
-          
-          const laURL = 'venta/myventa';
-          
-          const laSolicitud = new Request(
-            laURL,
-            {
-              method: 'POST',
-              headers: lasCabeceras,
-              //mode: 'no-cors',
-              body: JSON.stringify(carrito)
-            }
-          );
-          
-          fetch(laSolicitud)
-            .then((response) => {
-              return response.json();
-            })
-            .then((json) => {
-              // podemos ver el objeto pasado en la clave 'data'
-              console.log(`El tipo de 'json.data' es: ${typeof json.data}`);
-              console.log(json.data);
-              // claro está que viene como cadena de texto
-              // si deseamos verlo como objeto, habrá que
-              // usar JSON.parse()
-              let objeto = JSON.parse(json.data);
-              console.log(`El tipo de 'objeto' es: ${typeof objeto}`);
-              console.log(objeto);
-            })
-            .catch((error) => {
-              console.log('Uuuuups');
-              console.log(error.message);
-            });
+function saveCarrito (data){
+    fetch("http://localhost:3000/venta/624e272cce1587ea2b9a4a3e/venta", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
     })
 }
 
