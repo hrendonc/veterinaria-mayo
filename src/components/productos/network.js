@@ -3,12 +3,22 @@ const response = require('../../network/response')
 const controller = require('./controller')
 const router = express.Router()
 
-router.post('/', (req, res)=>{
-    console.log(req.body)
-    controller.addProducto(req.body)
+router.post('/', async (req, res)=>{    
+    try{
+        const ok = await controller.addProducto(req.body)
 
-    .then((fullProducto)=>response.success(req, res, 200, fullProducto))
-    .catch(e=>response.error(req, res, 400, 'Error interno', e))
+        if(ok){
+            fullProducto=>{response.success(req, res, 200, fullProducto)}
+            res.redirect('/addproducto')
+        }
+    }
+    catch (e){
+        response.error(req, res, 400, 'Error interno', e)
+    }
+
+    // controller.addProducto(req.body)
+    // .then((fullProducto)=>{response.success(req, res, 200, fullProducto)})
+    // .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })
 
 router.get('/', (req, res)=>{
