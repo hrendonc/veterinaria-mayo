@@ -2,7 +2,7 @@ const cards = document.getElementById('cards')
 const items = document.getElementById('items')
 const footer = document.getElementById('footer')
 const form = document.querySelector('form')
-const templateCard = document.querySelector('.template-card').content
+const inputProducto = document.getElementById('producto')
 const templateFooter = document.getElementById('template-footer').content
 const templateCarrito = document.getElementById('template-carrito').content
 const fragment = document.createDocumentFragment()
@@ -42,7 +42,6 @@ form.addEventListener('submit', e=>{
         new FormData(e.target)
     )
     setCarrito(data)
-    form.reset()
 })
 
 items.addEventListener('click', e =>{
@@ -74,10 +73,12 @@ const setCarrito = objeto=>{
 
 const pintarCarrito = ()=>{
     items.innerHTML = ''
+    inputProducto.focus()
     Object.values(carrito).forEach(producto=>{
-        templateCarrito.querySelector('th').textContent = producto.id
-        templateCarrito.querySelectorAll('td')[0].textContent = producto.nombre
-        templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad
+        templateCarrito.querySelectorAll('td')[0].textContent = producto.id
+        templateCarrito.querySelectorAll('td')[1].textContent = producto.nombre
+        templateCarrito.querySelectorAll('td')[2].textContent = producto.precio
+        templateCarrito.querySelectorAll('td')[3].textContent = producto.cantidad
         templateCarrito.querySelector('.btn-info').dataset.id = producto.id
         templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
         templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
@@ -95,14 +96,14 @@ const pintarFooter = ()=>{
     footer.innerHTML = ''
     if (Object.keys(carrito).length == 0) {
         footer.innerHTML = `
-            <th scope="row" colspan="5">Comienza a agregar productos!</th>
+            <th scope="row" colspan="6" class="text-center">Sistema listo para vender productos!</th>
             `
         return
     }
 
     const nCantidad = Object.values(carrito).reduce((acomulador, {cantidad}) => acomulador + cantidad, 0)
     const nPrecio = Object.values(carrito).reduce((acomulador, {cantidad, precio}) => acomulador + cantidad * precio, 0)
-    templateFooter.querySelectorAll('td')[0].textContent = nCantidad
+    templateFooter.querySelectorAll('td')[1].textContent = nCantidad
     templateFooter.querySelector('span').textContent = nPrecio
 
     const clone = templateFooter.cloneNode(true)
@@ -112,12 +113,31 @@ const pintarFooter = ()=>{
     const btnVaciar = document.getElementById('vaciar-carrito')
     btnVaciar.addEventListener('click', ()=>{
         carrito = {}
-        pintarCarrito()        
+        pintarCarrito()   
     })
 }
 
 const btnVender = document.getElementById('vender-carrito')
     btnVender.addEventListener('click', ()=>{      
+        if(Object.keys(carrito).length == 0)
+        {
+            footer.innerHTML = `
+            <th scope="row" colspan="6" class="text-center">
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </svg>
+                <div>
+                    No se han agregado productos para vender!
+                </div>
+                </div>
+            </th>
+            
+            `
+            
+            inputProducto.focus()
+            return
+        }
 
         for(x in carrito){
             enviarProductos.push(carrito[x])
@@ -131,7 +151,6 @@ const btnVender = document.getElementById('vender-carrito')
         carrito = {}
         objeto = {}
         enviarProductos = []
-        form.reset()
         pintarCarrito()
     })
 
