@@ -17,7 +17,7 @@ router(app)
 // Servir Archivos Estaticos
 app.use('/', express.static(__dirname + '/public'))
 app.use('/addproducto', express.static(__dirname + '/public/addProducto.html'))
-app.use('/adduser', express.static(__dirname + '/public/callCrud/addUser.html'))
+app.use('/adduser', express.static(__dirname + '/public/addUser.html'))
 
 // Ejecutar Servidor
 const PORT = process.env.PORT || 3000
