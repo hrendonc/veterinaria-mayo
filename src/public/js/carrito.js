@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // Consumir Productos de la API y guardarlos en un arreglo
 const apiProductos = async ()=>{
     try {
-        const res = await fetch('http://localhost:3000/producto')
+        const res = await fetch('https://vetmayo.herokuapp.com/producto')
         const data = await res.json()
         const mydata = data.body
         
@@ -155,7 +155,7 @@ const btnVender = document.getElementById('vender-carrito')
     })
 
 function saveCarrito (data){
-    fetch("http://localhost:3000/venta/624e272cce1587ea2b9a4a3e/venta", {
+    fetch("https://vetmayo.herokuapp.com/venta/624e272cce1587ea2b9a4a3e/venta", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
