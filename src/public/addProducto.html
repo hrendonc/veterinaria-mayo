@@ -14,13 +14,13 @@
     <h1>Guardar un producto en la Base de Datos</h1>
 
     <form action="/producto" method="post">
-        <div class="input-group mb-3 mt-3">
-            <span class="input-group-text">Nombre:</span>
-            <input type="text" class="form-control" name="nombre" id="nombre" required >
-        </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Código:</span>
             <input type="number" class="form-control" name="codigo" id="codigo" required>
+        </div>
+        <div class="input-group mb-3 mt-3">
+            <span class="input-group-text">Nombre:</span>
+            <input type="text" class="form-control" name="nombre" id="nombre" required >
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Precio:</span>
@@ -34,6 +34,10 @@
             <span class="input-group-text">Stock:</span>
             <input type="number" class="form-control" name="stock" id="stock" required>
         </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Descripción:</span>
+            <input type="text" class="form-control" name="descripcion" id="descripcion" required>
+        </div>
 
         <div class="d-grid gap-2 col-6 mx-auto">
             <input type="submit" class="btn btn-primary btn-lg" id="btn" value="Guardar Producto">
@@ -45,7 +49,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Código</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Stock</th>

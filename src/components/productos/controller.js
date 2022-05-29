@@ -17,8 +17,20 @@ function getProducto(){
     })
 }
 
+function updateProduct(id, data){
+    console.log('Controller--- ', id)
+    return new Promise(async (resolve, reject)=>{
+        if(!id || !data){
+            return reject('Datos Invalidos')
+        }
+        const result = await store.update(id, data)
+        resolve(result)
+    })
+}
+
 
 module.exports = {
     addProducto,
-    getProducto
+    getProducto,
+    updateProduct
 }

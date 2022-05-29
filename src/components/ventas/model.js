@@ -7,23 +7,15 @@ const ventaSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    productos: [ 
-        { 
-            codigo: {
-                type: Number
-            },
-            nombre: {
-                type: String
-            },
-            precio: {
-                type: Number
-            },
-            cantidad: {
-                type: Number
-            },
-            date: Date
-        }
-    ]
+    productos: [{
+        id: {type: String, required: true},
+        codigo: {type: Number, required: true},
+        nombre: {type: String},
+        precio: {type: Number},
+        cantidad: {type: Number},
+    }],
+    total: {type: Number, default: 0},
+    date: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Venta', ventaSchema)

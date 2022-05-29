@@ -4,7 +4,7 @@ const fragment = document.createDocumentFragment()
 
 pintarProductos()
 
-// Consumir Productos de la API y guardarlos en un arreglo
+// Consumir Productos de la API y mostrarlos
 async function pintarProductos(){
     try {
         const res = await fetch('https://vetmayo.herokuapp.com/producto')
