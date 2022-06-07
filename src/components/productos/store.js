@@ -37,8 +37,13 @@ async function updateProducto(id, data){
     }    
 }
 
+function deleteProduct(id){
+    return Model.deleteOne({_id: id})
+}
+
 module.exports = {
     add: addProducto,
     list: getProductos,
-    update: updateProducto
+    update: updateProducto,
+    delete: deleteProduct
 }

@@ -62,8 +62,10 @@ router.patch('/:idproduct', async (req, res)=>{
     
 })
 
-router.delete('/:idproduct', (req, res, next)=>{
-    
+router.delete('/:idproduct', (req, res)=>{
+    controller.deleteProduct(req.params.idproduct)
+    .then(() => {response.success(req, res, 200, `El producto ${req.params.idproduct} se eliminó con éxito!`)})
+    .catch(e => {response.error(req, res, 500, 'Error interno', e)})
 })
 
 module.exports = router
