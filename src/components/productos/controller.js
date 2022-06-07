@@ -11,14 +11,13 @@ function addProducto(data){
     return store.add(fullProducto)
 }
 
-function getProducto(){
+function getProductos(){
     return new Promise((resolve, reject)=>{
         resolve(store.list())
     })
 }
 
-function updateProduct(id, data){
-    console.log('Controller--- ', id)
+function updateProducto(id, data){
     return new Promise(async (resolve, reject)=>{
         if(!id || !data){
             return reject('Datos Invalidos')
@@ -28,9 +27,8 @@ function updateProduct(id, data){
     })
 }
 
-
 module.exports = {
     addProducto,
-    getProducto,
-    updateProduct
+    getProductos,
+    updateProducto
 }

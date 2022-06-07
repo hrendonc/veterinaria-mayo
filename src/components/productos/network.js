@@ -4,25 +4,25 @@ const controller = require('./controller')
 const router = express.Router()
 
 router.post('/', async (req, res)=>{    
-    try{
+    /*try{
         const ok = await controller.addProducto(req.body)
 
         if(ok){
-            fullProducto=>{response.success(req, res, 200, fullProducto)}
+            fullProducto => {response.success(req, res, 200, fullProducto)}            
             res.redirect('/addproducto')
         }
     }
     catch (e){
         response.error(req, res, 400, 'Error interno', e)
-    }
+    }*/
 
-    // controller.addProducto(req.body)
-    // .then((fullProducto)=>{response.success(req, res, 200, fullProducto)})
-    // .catch(e=>response.error(req, res, 400, 'Error interno', e))
+    controller.addProducto(req.body)
+    .then((fullProducto)=>{response.success(req, res, 200, fullProducto)})
+    .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })
 
 router.get('/', (req, res)=>{
-    controller.getProducto()
+    controller.getProductos()
     .then((data)=>{
         response.success(req, res, 200, data)
     })
@@ -31,7 +31,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.patch('/:idproduct', async (req, res, next)=>{
+router.patch('/:idproduct', async (req, res)=>{
 
     const {idproduct} = req.params
     const {codigo, nombre, precio, costo, stock, descripcion} = req.body
@@ -46,8 +46,7 @@ router.patch('/:idproduct', async (req, res, next)=>{
     } 
 
     try{
-        console.log('Network--- ', req.params)
-        const ok = await controller.updateProduct(req.params, req.body)
+        const ok = await controller.updateProducto(req.params, req.body)
 
         if(ok){
             response.success(req, res, 200, ok)
