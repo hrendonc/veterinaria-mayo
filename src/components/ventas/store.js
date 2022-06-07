@@ -35,7 +35,7 @@ async function addVenta(req){
 }
 
 async function getVenta(){
-    const ventas = await Model.find()
+    const ventas = await Venta.find()
     return ventas
 }
 

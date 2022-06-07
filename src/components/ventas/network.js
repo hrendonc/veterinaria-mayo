@@ -15,12 +15,8 @@ router.post('/:userId/venta', (req, res)=>{
 
 router.get('/', (req, res)=>{
     controller.getVenta()
-    .then((data)=>{
-        response.success(req, res, 200, data)
-    })
-    .catch(e=>{
-        response.error(req, res, 400, 'Error interno', e)
-    })
+    .then((data)=>{response.success(req, res, 200, data)})
+    .catch(e=>{response.error(req, res, 400, 'Error interno', e)})
 })
 
 module.exports = router

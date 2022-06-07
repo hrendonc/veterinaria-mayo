@@ -3,7 +3,7 @@ const Schema = Mongoose.Schema
 
 const ProductShema = new Schema ({
     codigo: {type: Number, required: true},
-    nombre : {type: String, required: true},
+    nombre: {type: String, required: true},
     precio: {type: Number, required: true},
     costo: {type: Number, required: true},
     stock: {type: Number, required: true},    
@@ -11,4 +11,4 @@ const ProductShema = new Schema ({
 })
 
 const model = Mongoose.model('Producto', ProductShema)
-module.exports = model 
+module.exports = model
