@@ -3,14 +3,10 @@ const response = require('../../network/response')
 const controller = require('./controller')
 const router = express.Router()
 
-router.post('/:userId/venta', (req, res)=>{
+router.post('/', (req, res)=>{
     controller.addVenta(req)
-    .then((fullVenta)=>{
-        response.success(req, res, 202, fullVenta)
-    })
-    .catch(e=>{
-        response.error(req, res, 400, 'Error interno', e)
-    })
+    .then((fullVenta)=>{response.success(req, res, 202, fullVenta)})
+    .catch(e=>{response.error(req, res, 400, 'Error interno', e)})
 })
 
 router.get('/', (req, res)=>{

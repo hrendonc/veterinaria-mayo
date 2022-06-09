@@ -3,16 +3,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ventaSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
+    user: {type: String, required: true},
     productos: [{
         id: {type: String, required: true},
         codigo: {type: Number, required: true},
-        nombre: {type: String},
-        precio: {type: Number},
-        cantidad: {type: Number},
+        nombre: {type: String, required: true},
+        precio: {type: Number, required: true},
+        cantidad: {type: Number, required: true},
     }],
     total: {type: Number, default: 0},
     date: {type: Date, default: Date.now}

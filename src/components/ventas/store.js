@@ -1,12 +1,17 @@
 const Venta = require('./model')
-const User = require('../user/model')
 const Producto = require('../productos/model')
 
 async function addVenta(req){
-    const { userId } = req.params
-    const newVenta = new Venta(req.body)
-    const user = await User.findById(userId)
-    newVenta.user = user
+    let ticket = req.body    
+    let total = 0
+    
+    for(x in ticket.productos){
+        total += ticket.productos[x].precio * ticket.productos[x].cantidad
+    }
+
+    ticket.total = total
+
+    const newVenta = new Venta(ticket)
 
     restarProducto()
     
@@ -16,9 +21,7 @@ async function addVenta(req){
     async function restarProducto(){
 
         for (x in req.body.productos) {
-
-            // console.log(req.body.productos)
-            const myCodigo = req.body.productos[x].id
+            const myCodigo = req.body.productos[x].codigo
             const myCantidad = req.body.productos[x].cantidad
 
             const producto = await Producto.find({ codigo: myCodigo })

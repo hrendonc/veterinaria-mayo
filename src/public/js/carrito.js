@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 const apiProductos = async ()=>{
     try {
         const res = await fetch('https://vetmayo.herokuapp.com/producto')
+        //const res = await fetch('http://localhost:3000/producto')
         const data = await res.json()
         const mydata = data.body
         
@@ -54,17 +55,20 @@ const setCarrito = objeto=>{
         if(element.codigo == objeto.producto){  //Comprueba si lo que viene del Form se ecuentra en la API
 
             const newProducto = {
-                id: element.codigo,
+                id: element._id,
+                codigo: element.codigo,
                 nombre: element.nombre,
                 precio: element.precio,
                 cantidad: 1
             }
 
-            if(carrito.hasOwnProperty(newProducto.id)){
-                newProducto.cantidad = carrito[newProducto.id].cantidad + 1
+            console.log(newProducto)
+
+            if(carrito.hasOwnProperty(newProducto.codigo)){
+                newProducto.cantidad = carrito[newProducto.codigo].cantidad + 1
             }
 
-            carrito[newProducto.id] = {...newProducto}
+            carrito[newProducto.codigo] = {...newProducto}
             pintarCarrito()
             return
         }        
@@ -75,12 +79,12 @@ const pintarCarrito = ()=>{
     items.innerHTML = ''
     inputProducto.focus()
     Object.values(carrito).forEach(producto=>{
-        templateCarrito.querySelectorAll('td')[0].textContent = producto.id
+        templateCarrito.querySelectorAll('td')[0].textContent = producto.codigo
         templateCarrito.querySelectorAll('td')[1].textContent = producto.nombre
         templateCarrito.querySelectorAll('td')[2].textContent = producto.precio
         templateCarrito.querySelectorAll('td')[3].textContent = producto.cantidad
-        templateCarrito.querySelector('.btn-info').dataset.id = producto.id
-        templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+        templateCarrito.querySelector('.btn-info').dataset.id = producto.codigo
+        templateCarrito.querySelector('.btn-danger').dataset.id = producto.codigo
         templateCarrito.querySelector('span').textContent = producto.cantidad * producto.precio
         const clone = templateCarrito.cloneNode(true)
         fragment.appendChild(clone)
@@ -144,6 +148,7 @@ const btnVender = document.getElementById('vender-carrito')
         }
 
         objeto = {
+            user: '6274793b080a4ddd01addc3b',
             productos: enviarProductos
         }   
 
@@ -155,7 +160,8 @@ const btnVender = document.getElementById('vender-carrito')
     })
 
 function saveCarrito (data){
-    fetch("https://vetmayo.herokuapp.com/venta/624e272cce1587ea2b9a4a3e/venta", {
+    fetch("https://vetmayo.herokuapp.com/venta", {
+    //fetch("http://localhost:3000/venta", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
