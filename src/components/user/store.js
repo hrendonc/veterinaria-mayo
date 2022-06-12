@@ -1,8 +1,16 @@
 const Model = require('./model')
 
-function addUser(user){
-    newUser = new Model(user)
-    newUser.save()
+async function addUser(data){
+    newUser = new Model(data)
+    
+    const existe = await newUser.usernameExist(data.user)
+
+    if (existe) {
+        return false
+    }else{
+        await newUser.save()
+    }
+    
 }
 
 async function getUsers(){
