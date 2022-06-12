@@ -1,16 +1,19 @@
 const Model = require('./model')
 
-async function addUser(data){
-    newUser = new Model(data)
-    
-    const existe = await newUser.usernameExist(data.user)
+async function addUser(data){   
+        newUser = new Model(data)
+        const existe = await newUser.usernameExist(data.user)
 
-    if (existe) {
-        return false
-    }else{
-        await newUser.save()
-    }
-    
+    return new Promise((resolve, reject)=>{
+
+        if (existe) {
+            reject('[Store] - El usuario ya existe!')
+            return false
+        }else{
+            const addMyUser = newUser.save()
+            resolve(addMyUser)
+        }
+    })
 }
 
 async function getUsers(){

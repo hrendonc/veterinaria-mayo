@@ -15,11 +15,11 @@ router.get('/', (req, res)=>{
 
 router.post('/', (req, res)=>{
     controller.addUser(req.body)
-    .then(fullUser=>{
-        response.success(req, res, 200, fullUser, 'Informacion agregada!')
+    .then(data=>{
+        response.success(req, res, 200, 'Informacion Registrada!', data)
     })
     .catch(e=>{
-        response.error(req, res, 400, 'Error en POST', e)
+        response.error(req, res, 400, 'Verifica el usuario o password', e)
     })
 })
 

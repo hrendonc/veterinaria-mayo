@@ -1,28 +1,21 @@
 const store = require('./store')
 
-addUser = (data)=>{
+function addUser (data){
     return new Promise((resolve, reject)=>{
-        if(!data){
-            console.error('[messageController] - No se recibió usuario o password')
-            reject('Datos incorrectos')
+        if(!data.user && !data.pass){
+            reject('[messageController] - No se recibió usuario o password')
             return false
-        }
-
-        if(data.user && data.pass){
-            const fullUser = {
+        }else{
+            const fullData = {
                 user: data.user,
                 pass: data.pass,
                 email: data.email,
                 date: new Date()
             }
 
-            store.add(fullUser)
-            resolve(fullUser)
-        }else{
-            reject('Ya existe usuario')
-            return false
+            addData = store.add(fullData)
+            resolve(addData)
         }
-        
     })
 }
 

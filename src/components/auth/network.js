@@ -1,6 +1,4 @@
 const express = require('express')
-const jsonwebtoken = require('jsonwebtoken')
-const response = require('../../network/response')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
@@ -40,21 +38,7 @@ router.post('/', (req, res)=>{
 })
 
 function generateAccesstoken(user){
-    return jwt.sign(user, process.env.SECRET, {expiresIn: '1m'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1m'})
 }
-
-function validateToken(req, res, next) {
-    const accessToken = req.headers['auth']
-    if(!accessToken)res.send('Acceso denegado!')
-
-    jwt.verify(accessToken, process.env.SECRET, (err, user)=>{
-        if(err){
-            res.send('Acceso denegado, Token expirado o incorrecto')
-        }else{
-            next()
-        }
-    })
-}
-
 
 module.exports = router
