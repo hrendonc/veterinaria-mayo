@@ -2,11 +2,13 @@ const express = require('express')
 const router = require('./network/routes')
 const db = require('./db')
 var cors = require('cors')
+const {createRoles} = require('./libs/initialSetup')
 
 // Conexión a la DB
 db()
 
 const app = express()
+createRoles()
 
 app.use(cors())
 

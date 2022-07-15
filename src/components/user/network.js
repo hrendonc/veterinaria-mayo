@@ -2,8 +2,10 @@ const express = require('express')
 const response = require('../../network/response')
 const controller = require('./controller')
 const router = express.Router()
+const {verifyToken, isAdmin} = require('../../middlewares/authJwt')
+const {checkRolesExisted, checkDuplicateUserOrMail} = require('../../middlewares/verifySignup')
 
-router.get('/', (req, res)=>{
+router.get('/', verifyToken, (req, res)=>{
     controller.getUsers()
     .then((usersList)=>{
         response.success(req, res, 200, usersList)
@@ -13,7 +15,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.post('/', (req, res)=>{
+router.post('/', verifyToken, isAdmin, checkRolesExisted, checkDuplicateUserOrMail, (req, res)=>{
     controller.addUser(req.body)
     .then(data=>{
         response.success(req, res, 200, 'Informacion Registrada!', data)

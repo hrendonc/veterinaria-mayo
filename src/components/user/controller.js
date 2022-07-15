@@ -1,6 +1,6 @@
 const store = require('./store')
 
-function addUser (data){
+exports.addUser = (data)=>{
     return new Promise((resolve, reject)=>{
         if(!data.user && !data.pass){
             reject('[messageController] - No se recibió usuario o password')
@@ -19,13 +19,8 @@ function addUser (data){
     })
 }
 
-function getUsers(){
+exports.getUsers = ()=>{
     return new Promise((resolve, reject)=>{
         resolve(store.list())
     })
-}
-
-module.exports = {
-    addUser,
-    getUsers,
 }

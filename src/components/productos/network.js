@@ -2,8 +2,9 @@ const express = require('express')
 const response = require('../../network/response')
 const controller = require('./controller')
 const router = express.Router()
+const {verifyToken, isAdmin} = require('../../middlewares/authJwt')
 
-router.post('/', async (req, res)=>{    
+router.post('/', verifyToken, isAdmin, async (req, res)=>{    
     /*try{
         const ok = await controller.addProducto(req.body)
 
@@ -21,7 +22,7 @@ router.post('/', async (req, res)=>{
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })
 
-router.get('/', (req, res)=>{
+router.get('/', verifyToken, (req, res)=>{
     controller.getProductos()
     .then((data)=>{
         response.success(req, res, 200, data)
@@ -31,7 +32,7 @@ router.get('/', (req, res)=>{
     })
 })
 
-router.patch('/:idproduct', async (req, res)=>{
+router.patch('/:idproduct', verifyToken, isAdmin, async (req, res)=>{
 
     const {idproduct} = req.params
     const {codigo, nombre, precio, costo, stock, descripcion} = req.body
@@ -62,7 +63,7 @@ router.patch('/:idproduct', async (req, res)=>{
     
 })
 
-router.delete('/:idproduct', (req, res)=>{
+router.delete('/:idproduct', verifyToken, isAdmin, (req, res)=>{
     controller.deleteProduct(req.params.idproduct)
     .then(() => {response.success(req, res, 200, `El producto ${req.params.idproduct} se eliminó con éxito!`)})
     .catch(e => {response.error(req, res, 500, 'Error interno', e)})

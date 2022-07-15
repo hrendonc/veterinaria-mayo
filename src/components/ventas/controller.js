@@ -16,7 +16,6 @@ function getVenta(){
     })
 }
 
-
 module.exports = {
     addVenta,
     getVenta
