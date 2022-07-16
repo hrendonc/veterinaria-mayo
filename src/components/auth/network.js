@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-//const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const authCtrl = require('./controller')
