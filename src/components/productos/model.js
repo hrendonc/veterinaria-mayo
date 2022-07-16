@@ -7,7 +7,8 @@ const ProductShema = new Schema ({
     precio: {type: Number, required: true},
     costo: {type: Number, required: true},
     stock: {type: Number, required: true},    
-    descripcion: {type: String}
+    descripcion: {type: String},
+    img: {type: String}
 })
 
 const model = Mongoose.model('Producto', ProductShema)
