@@ -2,7 +2,7 @@ const store = require('./store')
 
 function addProducto(data){
     if(!data){
-        console.error('[Controller] - No se recibió un algún dato')
+        console.error('[Controller] - No se recibieron los datos esperados')
         return new Promise.reject('Faltó algún dato')
     }
 
