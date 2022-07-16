@@ -16,7 +16,8 @@ router.post('/', verifyToken, isAdmin, async (req, res)=>{
     catch (e){
         response.error(req, res, 400, 'Error interno', e)
     }*/
-
+    const {codigo, nombre, precio, costo, stock} = req.body
+    if(!codigo || !nombre || !precio || !costo || !stock ) return res.status(400).json({Message: 'Faltaron datos requeridos'})
     controller.addProducto(req.body)
     .then((fullProducto)=>{response.success(req, res, 200, fullProducto)})
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
