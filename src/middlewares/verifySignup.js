@@ -13,6 +13,8 @@ exports.checkRolesExisted = (req, res, next)=>{
 }
 
 exports.checkDuplicateUserOrMail = async (req, res, next)=>{
+    if(!req.body.user || !req.body.pass || !req.body.email) return res.status(400).json({message: 'No se están recibiendo los datos requeridos!'})
+
     const user = await User.findOne({user: req.body.user})
     if(user) return res.status(400).json({message: 'User or mail exist!'})
 

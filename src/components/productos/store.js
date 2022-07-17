@@ -12,7 +12,7 @@ async function getProductos(){
 
 async function updateProducto(id, data){
     try{
-        const foundData = await await Model.findOne({
+        const foundData = await Model.findOne({
             _id: id.idproduct
         })
     

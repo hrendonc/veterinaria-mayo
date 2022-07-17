@@ -1,4 +1,6 @@
 const store = require('./store')
+const User = require('./model')
+const response = require('../../network/response')
 
 exports.addUser = (data)=>{
     return new Promise((resolve, reject)=>{
@@ -23,4 +25,22 @@ exports.getUsers = ()=>{
     return new Promise((resolve, reject)=>{
         resolve(store.list())
     })
+}
+
+exports.updateUserById = async (req, res)=>{
+    if(Object.entries(req.body).length === 0)
+    return res.status(400).json({message: 'No se recibieron datos para modificar'})
+    
+    const user = await User.findOne({user: req.body.user})
+    if(user) return res.status(400).json({message: 'User exist!'})
+
+    const email = await User.findOne({email: req.body.email})
+    if(email) return res.status(400).json({message: 'Mail exist!'})
+
+    try {
+        const updated = await User.findByIdAndUpdate(req.params.idUser, req.body, {new: true})
+        response.success(req, res, 200, 'Actualizado Correctamente', updated) 
+    } catch (error) {
+        response.error(req, res, 400, 'Algo salio mal al intentar actualizar, intentelo de nuevo', error)
+    }
 }
