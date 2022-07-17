@@ -23,16 +23,16 @@ async function updateProducto(id, data){
             if(data.costo) foundData.costo = data.costo
             if(data.stock) foundData.stock = data.stock
             if(data.descripcion) foundData.descripcion = data.descripcion
+            if(data.img) foundData.img = data.img
 
             const newData = await foundData.save()
             return newData
         }else{
-            console.log('Algo salio mal')
             return false
         }
     }
     catch (e){
-        console.log('error')
+        console.log('[Update-Store] - ', e)
         return false
     }    
 }

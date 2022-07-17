@@ -19,7 +19,7 @@ function getProductos(){
 
 function updateProducto(id, data){
     return new Promise(async (resolve, reject)=>{
-        if(!id || !data){
+        if(!id && !data){
             return reject('Datos Invalidos')
         }
         const result = await store.update(id, data)
