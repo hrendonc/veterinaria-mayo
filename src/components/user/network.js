@@ -27,6 +27,8 @@ router.post('/', verifyToken, isAdmin, checkRolesExisted, checkDuplicateUserOrMa
 
 router.patch('/:idUser', verifyToken, isAdmin, controller.updateUserById)
 
+router.delete('/:idUser', verifyToken, isAdmin, controller.deleteUser)
+
 
 
 

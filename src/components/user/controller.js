@@ -44,3 +44,12 @@ exports.updateUserById = async (req, res)=>{
         response.error(req, res, 400, 'Algo salio mal al intentar actualizar, intentelo de nuevo', error)
     }
 }
+
+exports.deleteUser = async (req, res)=>{
+    try {
+        const delUser = await User.findByIdAndDelete(req.params.idUser)
+        response.success(req, res, 200, `El usuario ${delUser.user} ha sido eliminado`)
+    } catch (error) {
+        response.error(req, res, 400, 'Error al eliminar el usuario, intentelo de nuevo', error)
+    }    
+}
