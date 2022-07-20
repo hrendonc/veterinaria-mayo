@@ -48,4 +48,5 @@ exports.signIn = async (req, res)=>{
     const token = jwt.sign({id: userFound._id}, process.env.SECRET, {expiresIn: '1d'})
 
     res.json({User:userFound.user, token})
+    //res.redirect('/index2.html')
 }

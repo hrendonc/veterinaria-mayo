@@ -7,8 +7,8 @@ pintarProductos()
 // Consumir Productos de la API y mostrarlos
 async function pintarProductos(){
     try {
-        const res = await fetch('https://vetmayo.herokuapp.com/producto')
-        //const res = await fetch('http://localhost:3000/producto')
+        //const res = await fetch('https://vetmayo.herokuapp.com/producto')
+        const res = await fetch('http://localhost:3000/producto')
         const data = await res.json()
         const producto = data.body      
 

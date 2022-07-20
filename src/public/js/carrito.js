@@ -24,16 +24,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // Consumir Productos de la API y guardarlos en un arreglo
 const apiProductos = async ()=>{
     try {
-        const res = await fetch('https://vetmayo.herokuapp.com/producto')
-        //const res = await fetch('http://localhost:3000/producto')
-        const data = await res.json()
-        const mydata = data.body
+        // let myObject = await fetch('https://vetmayo.herokuapp.com/producto', {
+        //     method: "get"
+        // })
+
+        let myObject = await fetch('http://localhost:3000/producto', {
+            method: "get",
+            headers:{
+                'Content-Type': 'application/json'
+              }
+
+        })
+
+        let myData = await myObject.json();
+        const dataResult = myData.message
+
+        console.log(myData)
         
-        for(x in mydata){
-            productos.push(mydata[x])
+        for(x in dataResult){
+            productos.push(dataResult[x])            
         }
     }
     catch(e){ console.log(e) }
+
 }
 
 // Escuchar el envio de datos del formulario y guardarlos en un objeto
@@ -62,7 +75,7 @@ const setCarrito = objeto=>{
                 cantidad: 1
             }
 
-            console.log(newProducto)
+            //console.log(newProducto)
 
             if(carrito.hasOwnProperty(newProducto.codigo)){
                 newProducto.cantidad = carrito[newProducto.codigo].cantidad + 1
@@ -160,8 +173,8 @@ const btnVender = document.getElementById('vender-carrito')
     })
 
 function saveCarrito (data){
-    fetch("https://vetmayo.herokuapp.com/venta", {
-    //fetch("http://localhost:3000/venta", {
+    //fetch("https://vetmayo.herokuapp.com/venta", {
+    fetch("http://localhost:3000/venta", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
