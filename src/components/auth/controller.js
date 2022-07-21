@@ -35,6 +35,7 @@ exports.signUp = async (req, res)=>{
 
 exports.signIn = async (req, res)=>{
     const {email, pass} = req.body
+
     if(!email || !pass) return res.status(400).json({Message: 'No se recibieron los datos esperados'})
 
     const userFound = await User.findOne({email}).populate('roles')
@@ -47,6 +48,8 @@ exports.signIn = async (req, res)=>{
 
     const token = jwt.sign({id: userFound._id}, process.env.SECRET, {expiresIn: '1d'})
 
-    res.json({User:userFound.user, token})
-    //res.redirect('/index2.html')
+    //res.json({User:userFound.user, token})
+    req.flash('user', token)
+    res.redirect('/carrito')
+    
 }

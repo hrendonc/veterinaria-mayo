@@ -25,14 +25,16 @@ router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, async (req, 
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })
 
-router.get('/', (req, res)=>{
+router.get('/', (req, res) => {
+
     controller.getProductos()
-    .then((data)=>{
-        response.success(req, res, 200, data)
-    })
-    .catch(e=>{
-        response.error(req, res, 400, 'Error interno', e)
-    })
+        .then((data) => {
+            response.success(req, res, 200, data)
+        })
+        .catch(e => {
+            response.error(req, res, 400, 'Error interno', e)
+        })
+
 })
 
 router.patch('/:idproduct', verifyToken, isAdmin, async (req, res)=>{

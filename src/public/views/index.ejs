@@ -21,7 +21,7 @@
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../">
 </head>
 
 <body>
@@ -39,21 +39,7 @@
 
                 <div class="card-body">
 
-
-
-                    <!-- <div class="row" id="cards">
-                        <form action="" method="post">
-                          <div class="d-flex justify-content-center flex-row bd-highlight">
-                            <div class="p-2 bd-highlight"><input type="number" class="form-control" name="producto" id="producto" placeholder="Código del Producto" autofocus></div>
-                            <div class="p-2 bd-highlight"><input type="submit" class="btn btn-secondary" id="btn" value="Agregar"></div>
-                          </div>
-                        </form>          
-                      </div> -->
-
-
-
-
-                    <form action="" method="post">
+                    <form action="/auth/signin" method="post">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -75,6 +61,7 @@
                             <input type="submit" value="Login" class="btn float-right login_btn">
                         </div>
                     </form>
+                    
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
@@ -88,7 +75,4 @@
         </div>
     </div>
 </body>
-
-<script src="./js/auth.js"></script>
-
 </html>

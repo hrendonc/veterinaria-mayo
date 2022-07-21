@@ -1,5 +1,4 @@
 const Model = require('./model')
-
 const Role = require('../auth/role')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
