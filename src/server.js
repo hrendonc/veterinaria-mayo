@@ -17,7 +17,7 @@ createRoles()
 app.use(cors())
 
 // set the view engine to ejs
-app.set('views', path.join(__dirname, 'public/views'))
+app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs');
 
 // MIDDLEWARES
@@ -36,34 +36,17 @@ app.use(flash())
 // Rutas
 router(app)
 
-// Servir Archivos Estaticos
-app.get('/', function(req, res) {
-    res.render('index');
+//Servir Archivos Estaticos
+app.use('/', express.static(__dirname + '/views'))
+
+app.get('/carrito', function(req, res) {
+    let user = req.session
+    res.render('carrito.ejs', {user});
 });
 
-/*
-app.post('/register', (req, res)=>{
-    req.session.user = req.body
-    req.flash('user', req.body)
-    res.redirect('/profile')
-})
-
-app.get('/profile', (req, res)=>{
-    const user = req.flash('user')[0]
-    res.render('profile', {user})
-})
-*/
-
-app.get('/carrito', (req, res)=>{
-    const user = req.flash('user')[0]
-    console.log(user)
-    res.render('carrito', {user})
-})
-
 // Servir Archivos Estaticos
-//app.use('/', express.static(__dirname + '/public'))
-//app.use('/addproducto', express.static(__dirname + '/public/addProducto.html'))
-//app.use('/adduser', express.static(__dirname + '/public/addUser.html'))
+// app.use('/addproducto', express.static(__dirname + '/public/addProducto.html'))
+// app.use('/adduser', express.static(__dirname + '/public/addUser.html'))
 
 // Ejecutar Servidor
 const PORT = process.env.PORT || 3000

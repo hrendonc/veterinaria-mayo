@@ -25,7 +25,7 @@ router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, async (req, 
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })
 
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
 
     controller.getProductos()
         .then((data) => {

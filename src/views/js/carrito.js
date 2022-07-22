@@ -2,6 +2,7 @@ const cards = document.getElementById('cards')
 const items = document.getElementById('items')
 const footer = document.getElementById('footer')
 const form = document.querySelector('form')
+const token = document.getElementById('token')
 const inputProducto = document.getElementById('producto')
 const templateFooter = document.getElementById('template-footer').content
 const templateCarrito = document.getElementById('template-carrito').content
@@ -11,6 +12,7 @@ let carrito = {}
 let productos = []  // Guarda los productos de la API
 let enviarProductos = [] //Productos a enviar a la API
 let objeto = {}
+let myToken = token.innerHTML
 
 document.addEventListener('DOMContentLoaded', ()=>{
     apiProductos()
@@ -25,22 +27,21 @@ document.addEventListener('DOMContentLoaded', ()=>{
 const apiProductos = async ()=>{
     try {
         // let myObject = await fetch('https://vetmayo.herokuapp.com/producto', {
-        //     method: "get"
-        // })
-
         let myObject = await fetch('http://localhost:3000/producto', {
             method: "get",
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'auth': myToken
               }
-
         })
+
+        if(!myObject.ok) {
+            window.location.replace("http://localhost:3000/");
+        }
 
         let myData = await myObject.json();
         const dataResult = myData.message
 
-        console.log(myData)
-        
         for(x in dataResult){
             productos.push(dataResult[x])            
         }
@@ -176,9 +177,10 @@ function saveCarrito (data){
     //fetch("https://vetmayo.herokuapp.com/venta", {
     fetch("http://localhost:3000/venta", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers:{
+            'Content-Type': 'application/json',
+            'auth': token.innerHTML
+          },
         body: JSON.stringify(data)
     })
 }

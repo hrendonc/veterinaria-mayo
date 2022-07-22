@@ -49,7 +49,10 @@ exports.signIn = async (req, res)=>{
     const token = jwt.sign({id: userFound._id}, process.env.SECRET, {expiresIn: '1d'})
 
     //res.json({User:userFound.user, token})
-    req.flash('user', token)
+
+    req.session.user = userFound.user
+    req.session.token = token
+
     res.redirect('/carrito')
     
 }
