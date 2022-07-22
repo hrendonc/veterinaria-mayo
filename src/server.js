@@ -37,7 +37,12 @@ app.use(flash())
 router(app)
 
 //Servir Archivos Estaticos
-app.use('/', express.static(__dirname + '/views'))
+app.use('/', express.static(__dirname + '/views')) //Signin
+
+app.get('/addUser', function (req, res){
+    let user = req.session
+    res.render('addUser.ejs', {user})
+}) //SignUp
 
 app.get('/carrito', function(req, res) {
     let user = req.session

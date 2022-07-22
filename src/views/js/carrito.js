@@ -76,8 +76,6 @@ const setCarrito = objeto=>{
                 cantidad: 1
             }
 
-            //console.log(newProducto)
-
             if(carrito.hasOwnProperty(newProducto.codigo)){
                 newProducto.cantidad = carrito[newProducto.codigo].cantidad + 1
             }
@@ -173,16 +171,21 @@ const btnVender = document.getElementById('vender-carrito')
         pintarCarrito()
     })
 
-function saveCarrito (data){
-    //fetch("https://vetmayo.herokuapp.com/venta", {
-    fetch("http://localhost:3000/venta", {
+async function saveCarrito (data){
+    //let myObject = await fetch("https://vetmayo.herokuapp.com/venta", {
+    let miVenta = await fetch("http://localhost:3000/venta", {
         method: "POST",
         headers:{
             'Content-Type': 'application/json',
-            'auth': token.innerHTML
-          },
+            'auth': myToken
+        },
         body: JSON.stringify(data)
     })
+
+    if (!miVenta.ok) {
+        window.location.replace("http://localhost:3000/");
+    }
+
 }
 
 const btnAccion = e => {
