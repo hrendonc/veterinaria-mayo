@@ -6,7 +6,8 @@ const {createRoles} = require('./libs/initialSetup')
 
 const path = require('path')
 const session = require('express-session')
-const flash = require('connect-flash')
+let ejs = require('ejs');
+//const flash = require('connect-flash')
 
 // Conexión a la DB
 db()
@@ -16,9 +17,12 @@ createRoles()
 
 app.use(cors())
 
-// set the view engine to ejs
+// Establecer el motor de vistas
 app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
+
+//Servir Archivos Estaticos
+app.use(express.static(path.join(__dirname, 'views')))
 
 // MIDDLEWARES
 // Obtener información del cliente (Body/Query)
@@ -31,23 +35,30 @@ app.use(session({
     saveUninitialized: false
 }))
 
-app.use(flash())
+//app.use(flash())
 
 // Rutas
 router(app)
 
 //Servir Archivos Estaticos
-app.use('/', express.static(__dirname + '/views')) //Signin
+//app.use('/', express.static(__dirname + '/views')) //Signin
 
-app.get('/addUser', function (req, res){
-    let user = req.session
-    res.render('addUser.ejs', {user})
-}) //SignUp
+//app.get('/settings', function (req, res){
+//    let user = req.session
+//    res.render('layout.ejs', {user})
+//})
 
+//app.get('/addUser', function (req, res){
+//    let user = req.session
+//    res.render('addUser.ejs', {user})
+//}) //SignUp
+
+/*
 app.get('/carrito', function(req, res) {
     let user = req.session
     res.render('carrito.ejs', {user});
 });
+*/
 
 // Servir Archivos Estaticos
 // app.use('/addproducto', express.static(__dirname + '/public/addProducto.html'))
