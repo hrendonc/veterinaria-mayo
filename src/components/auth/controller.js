@@ -34,6 +34,7 @@ exports.signUp = async (req, res)=>{
 }
 
 exports.signIn = async (req, res)=>{
+    console.log(req.body)
     const {email, pass} = req.body
 
     if(!email || !pass) return res.status(400).json({Message: 'No se recibieron los datos esperados'})
