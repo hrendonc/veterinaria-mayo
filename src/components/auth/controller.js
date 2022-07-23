@@ -52,7 +52,7 @@ exports.signIn = async (req, res)=>{
 
     req.session.user = userFound.user
     req.session.token = token
-
+    
     res.redirect('/carrito')
     
 }

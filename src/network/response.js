@@ -7,7 +7,7 @@ exports.success = (req, res, status, mensaje, data)=>{
 }
 
 exports.error = (req, res, status, mensaje, detalles)=>{
-    console.error('Error: ', detalles)
+    console.error('Response Error: ', detalles)
     res.status(status).send({
         error: mensaje,
         body: null

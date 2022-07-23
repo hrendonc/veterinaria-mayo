@@ -7,10 +7,7 @@ const response = require('../network/response')
 exports.verifyToken = async (req, res, next)=>{
     try {
         const token = req.headers['auth']
-
-        console.log(token)
-
-        
+       
         if(!token) return response.error(req, res, 400, 'No Token Provided', 'No se recibio un token valido')
 
         const decoded = jwt.verify(token, process.env.SECRET)
@@ -23,7 +20,7 @@ exports.verifyToken = async (req, res, next)=>{
 
         next()
     } catch (error) {
-        response.error(req, res, 400, 'Unauthorized', error)
+        response.error(req, res, 400, 'Unauthorized', error.message)
     }
 }
 
@@ -53,11 +50,9 @@ exports.isUser = async(req, res, next)=>{
     return response.error(req, res, 400, 'Es necesario registrarse', 'Require Register')
 }
 
-exports.checkHeader = (req, res, next)=>{
+exports.setHeader = (req, res, next)=>{
+    if(!req.session.token) return res.redirect('/')
     const token = req.session.token
-    console.log(token)
-    res.header('Content-Type', 'text/html');
-    res.header('auth', token)
-    console.log(req.headers['auth'])
+    req.headers['auth'] = token  // Los headers son objetos y se almacenan con el encabezado como clave del valor
     next()
 }
