@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // Consumir Productos de la API y guardarlos en un arreglo
 const apiProductos = async ()=>{
     try {
-        let myObject = await fetch('https://vetmayo.herokuapp.com/producto', {
-        //let myObject = await fetch('http://localhost:3000/producto', {
+        //let myObject = await fetch('https://vetmayo.herokuapp.com/producto', {
+        let myObject = await fetch('http://localhost:3000/producto', {
             method: "get",
             headers:{
                 'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const apiProductos = async ()=>{
 
         if(!myObject.ok) {
             window.location.replace("https://vetmayo.herokuapp.com/");
-            //window.location.replace("http://localhost:3000/");
+            window.location.replace("http://localhost:3000/");
         }
 
         let myData = await myObject.json();
@@ -173,8 +173,8 @@ const btnVender = document.getElementById('vender-carrito')
     })
 
 async function saveCarrito (data){
-    let miVenta = await fetch("https://vetmayo.herokuapp.com/venta", {
-    //let miVenta = await fetch("http://localhost:3000/venta", {
+    //let miVenta = await fetch("https://vetmayo.herokuapp.com/venta", {
+    let miVenta = await fetch("http://localhost:3000/venta", {
         method: "POST",
         headers:{
             'Content-Type': 'application/json',
@@ -184,8 +184,8 @@ async function saveCarrito (data){
     })
 
     if (!miVenta.ok) {
-        window.location.replace("https://vetmayo.herokuapp.com/")
-        //window.location.replace("http://localhost:3000/")
+        //window.location.replace("https://vetmayo.herokuapp.com/")
+        window.location.replace("http://localhost:3000/")
     }
 
 }
