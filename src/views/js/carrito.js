@@ -36,7 +36,7 @@ const apiProductos = async ()=>{
         })
 
         if(!myObject.ok) {
-            window.location.replace("https://vetmayo.herokuapp.com/");
+            //window.location.replace("https://vetmayo.herokuapp.com/");
             window.location.replace("/");
         }
 
