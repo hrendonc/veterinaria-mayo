@@ -12,9 +12,8 @@ form.addEventListener('submit', e=>{
 })
 
 async function login (data){
-    console.log(data)
     //let login = await fetch("https://vetmayo.herokuapp.com/auth/signin", {
-    let login = await fetch("http://localhost:3000/auth/signin", {
+    let login = await fetch("/auth/signin", {
         method: "POST",
         headers:{
             'Content-Type': 'application/json'
@@ -33,5 +32,5 @@ async function login (data){
     }
     
     //window.location.assign("https://vetmayo.herokuapp.com/carrito")
-    window.location.assign("http://localhost:3000/carrito")
+    window.location.assign("/carrito")
 }
