@@ -12,8 +12,12 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center flex-row bd-highlight">
         <div class="p-2 bd-highlight"><h1 class="text-start text-secondary">Veterinaria "El Ganadero"</h1></div>
-        <div class="p-2 bd-highlight"> <button href="/signout" class="m-1">Abandonar el sitema: <% if(user)%> <span id="user"><%= user.user %></span> </button><span hidden id="token"><%= user.token %></span><span class="material-symbols-outlined"><a href="/settings">settings</a></span></div>
+        <div class="p-2 bd-highlight text-secondary">Usuario en turno: <% if(user)%> <span id="user"><b><%= user.user %></b></span> | <a href="/logout"> Salir</a>
+        <span hidden id="token"><%= user.token %></span>
+        </div>
       </div>
+
+      <hr>
 
         <div class="row" id="cards">
           <form action="" method="post">
@@ -48,6 +52,12 @@
           <div class="d-grid gap-2 col-6 mx-auto">
             <button class="btn btn-primary btn-lg mt-3 mb-3" id="vender-carrito">Realizar Venta</button>
           </div>
+
+
+          <a class="btn btn-primary rounded-circle position-absolute top-0 end-0 material-symbols-outlined m-1" href="/settings" role="button"><h3>settings</h3></a>
+
+          </span>
+
     </div>
 
     <template id="template-footer">
