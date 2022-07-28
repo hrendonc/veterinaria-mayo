@@ -16,6 +16,6 @@ exports.carrito = (req, res)=>{
 exports.logout = (req, res)=>{
     let user = req.session.user
     req.session.destroy(function(err) {
-        res.render('login', {body: {status: 'true', title: 'Sesión Cerrada!', message:`Excelente día ${user}`}})
+        res.render('login', {body: `Sesión de ${user} terminada.`})
       })
 }
