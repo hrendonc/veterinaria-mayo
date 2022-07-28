@@ -8,7 +8,8 @@ exports.verifyToken = async (req, res, next)=>{
     try {
         const token = req.session.token
        
-        if(!token) return response.error(req, res, 400, 'No Token Provided', 'No se recibio un token valido')
+        if(!token) return res.render('login', {body: 'No se recibio un token valido'})
+        //response.error(req, res, 400, 'No Token Provided', 'No se recibio un token valido')
 
         const decoded = jwt.verify(token, process.env.SECRET)
 

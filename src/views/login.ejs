@@ -77,8 +77,10 @@
     <main class="form-signin w-100 m-auto">
 
         <div id="message"></div>
-
-    
+        <div id="eBody">
+            <% if (body) { %><%= body.status %>
+              <% } %>
+        </div>
 
         <form class="shadow-lg p-3 mb-5 bg-body rounded">
             <img class="mb-4" src="img/favicon-32x32.png" alt="">
