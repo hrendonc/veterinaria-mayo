@@ -1,13 +1,5 @@
 const form = document.querySelector('form')
 const message = document.getElementById('message')
-const messageOk = document.getElementById('messageOk')
-const btnAlert = document.getElementById('btnAlert')
-
-
-if(messageOk.innerHTML == ''){
- message.innerHTML = ''   
-}
-
 
 // Escuchar el envio de datos del formulario y guardarlos en un objeto
 form.addEventListener('submit', e=>{
@@ -39,6 +31,6 @@ async function login (data){
             `;
         return
     }
-    
+        
     window.location.assign("/carrito")
 }

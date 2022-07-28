@@ -6,10 +6,9 @@ const response = require('../network/response')
 
 exports.verifyToken = async (req, res, next)=>{
     try {
-        const token = req.session
-        console.log(req.session)
+        const token = req.session.token
        
-        if(!token) return res.render('login', {body: {error:'Error interno!', message:'No se recibio un Token valido, es necesario logearse.'}})
+        if(!token) return response.error(req, res, 400, 'No Token Provided', 'No se recibio un token valido')
 
         const decoded = jwt.verify(token, process.env.SECRET)
 

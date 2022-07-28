@@ -10,7 +10,6 @@ exports.settings = (req, res)=>{
 
 exports.carrito = (req, res)=>{
     let user = req.session
-    console.log(user)
     res.render('carrito', {user})
 }
 

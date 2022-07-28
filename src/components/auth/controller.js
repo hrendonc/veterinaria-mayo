@@ -49,9 +49,10 @@ exports.signIn = async (req, res)=>{
 
     const token = jwt.sign({id: userFound._id}, process.env.SECRET, {expiresIn: '1d'})
 
-    response.success(req, res, 200, `Bienvenido ${userFound.user}`, token)    
-
     req.session.user = userFound.user
     req.session.token = token
-    console.log(req.session)
+
+    response.success(req, res, 200, `Bienvenido ${userFound.user}`, req.session)    
+    
+    
 }
