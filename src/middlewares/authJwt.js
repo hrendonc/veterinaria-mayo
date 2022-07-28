@@ -6,9 +6,10 @@ const response = require('../network/response')
 
 exports.verifyToken = async (req, res, next)=>{
     try {
-        const token = req.headers['auth']
+        const token = req.session
+        console.log(req.session)
        
-        if(!token) return response.error(req, res, 400, 'No Token Provided', 'No se recibio un token valido')
+        if(!token) return res.render('login', {body: {error:'Error interno!', message:'No se recibio un Token valido, es necesario logearse.'}})
 
         const decoded = jwt.verify(token, process.env.SECRET)
 
@@ -51,8 +52,8 @@ exports.isUser = async(req, res, next)=>{
 }
 
 exports.setHeader = (req, res, next)=>{
-    if(!req.session.token) return res.redirect('/')
-    const token = req.session.token
-    req.headers['auth'] = token  // Los headers son objetos y se almacenan con el encabezado como clave del valor
+    //if(!req.session.token) return res.redirect('/')
+    //const token = req.session.token
+    //req.headers['auth'] = token  // Los headers son objetos y se almacenan con el encabezado como clave del valor
     next()
 }

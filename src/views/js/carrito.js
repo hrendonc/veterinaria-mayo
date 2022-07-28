@@ -3,6 +3,7 @@ const items = document.getElementById('items')
 const footer = document.getElementById('footer')
 const form = document.querySelector('form')
 const token = document.getElementById('token')
+const message = document.getElementById('message')
 const inputProducto = document.getElementById('producto')
 const templateFooter = document.getElementById('template-footer').content
 const templateCarrito = document.getElementById('template-carrito').content
@@ -26,7 +27,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // Consumir Productos de la API y guardarlos en un arreglo
 const apiProductos = async ()=>{
     try {
-        //let myObject = await fetch('https://vetmayo.herokuapp.com/producto', {
         let myObject = await fetch('/producto', {
             method: "get",
             headers:{
@@ -35,13 +35,21 @@ const apiProductos = async ()=>{
               }
         })
 
-        if(!myObject.ok) {
-            //window.location.replace("https://vetmayo.herokuapp.com/");
-            window.location.replace("/");
-        }
-
         let myData = await myObject.json();
         const dataResult = myData.message
+
+        if(!myObject.ok) {
+            message.innerHTML = `
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Error de autenticación!</strong><hr> ${myData.error}
+                <button type="button" id="btnAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            `;
+            return
+            //window.location.replace("/");
+        }
+
+        
 
         for(x in dataResult){
             productos.push(dataResult[x])            
@@ -173,7 +181,6 @@ const btnVender = document.getElementById('vender-carrito')
     })
 
 async function saveCarrito (data){
-    //let miVenta = await fetch("https://vetmayo.herokuapp.com/venta", {
     let miVenta = await fetch("/venta", {
         method: "POST",
         headers:{
@@ -184,7 +191,6 @@ async function saveCarrito (data){
     })
 
     if (!miVenta.ok) {
-        //window.location.replace("https://vetmayo.herokuapp.com/")
         window.location.replace("/")
     }
 

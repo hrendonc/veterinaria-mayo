@@ -21,11 +21,10 @@
       <div class="p-2 bd-highlight text-secondary">Usuario en turno: <% if(user)%> <span id="user"><b>
               <%= user.user %>
             </b></span> | <a href="/logout"> Log out</a>
-          <span hidden id="token">
-            <%= user.token %>
-          </span>
+          <span hidden id="token"><%= user.token %></span>
       </div>
     </div>
+    <div id="message"></div>
 
     <hr>
 

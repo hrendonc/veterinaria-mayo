@@ -1,6 +1,6 @@
 
 exports.login = (req, res)=>{
-    res.render('login')
+    res.render('login', {body:''})
 }
 
 exports.settings = (req, res)=>{
@@ -10,6 +10,7 @@ exports.settings = (req, res)=>{
 
 exports.carrito = (req, res)=>{
     let user = req.session
+    console.log(user)
     res.render('carrito', {user})
 }
 

@@ -5,7 +5,7 @@ const {login, logout, carrito, settings} = require('./controller')
 
 router.get('/', login)
 router.get('/logout', logout)
-router.get('/carrito', setHeader, verifyToken, carrito);
+router.get('/carrito', verifyToken, carrito);
 router.get('/settings', setHeader, verifyToken, isAdmin, settings)
 
 module.exports = router
