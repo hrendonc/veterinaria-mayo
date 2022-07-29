@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // Consumir Productos de la API y guardarlos en un arreglo
 const apiProductos = async ()=>{
     try {
-        let myObject = await fetch('/producto', {
+        let myObject = await fetch('/productos', {
             method: "get",
             headers:{
                 'Content-Type': 'application/json',

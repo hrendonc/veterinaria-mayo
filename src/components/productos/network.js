@@ -21,7 +21,10 @@ router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, async (req, 
     if(!codigo || !nombre || !precio || !costo || !stock ) return res.status(400).json({Message: 'Faltaron datos requeridos'})
     
     controller.addProducto(req.body)
-    .then((fullProducto)=>{response.success(req, res, 200, fullProducto)})
+    .then((fullProducto)=>{
+        //response.success(req, res, 200, fullProducto)
+        res.render('productos_add', {fullProducto})
+    })
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })
 

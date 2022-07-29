@@ -3,9 +3,11 @@ exports.login = (req, res)=>{
     res.render('login', {body:''})
 }
 
-exports.settings = (req, res)=>{
-    let user = req.session
-    res.render('dashboard', {user})
+exports.logout = (req, res)=>{
+    let user = req.session.user
+    req.session.destroy(function(err) {
+        res.render('login', {body: `Sesión de ${user} terminada.`})
+      })
 }
 
 exports.carrito = (req, res)=>{
@@ -13,9 +15,11 @@ exports.carrito = (req, res)=>{
     res.render('carrito', {user})
 }
 
-exports.logout = (req, res)=>{
-    let user = req.session.user
-    req.session.destroy(function(err) {
-        res.render('login', {body: `Sesión de ${user} terminada.`})
-      })
+exports.settings = (req, res)=>{
+    let user = req.session
+    res.render('dashboard', {user})
+}
+
+exports.productos = (req, res)=>{
+    res.render('productos_add', {fullProducto:''})
 }
