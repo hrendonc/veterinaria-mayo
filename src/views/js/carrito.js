@@ -49,8 +49,6 @@ const apiProductos = async ()=>{
             //window.location.replace("/");
         }
 
-        
-
         for(x in dataResult){
             productos.push(dataResult[x])            
         }

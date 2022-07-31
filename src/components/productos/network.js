@@ -59,7 +59,7 @@ router.patch('/:idproduct', verifyToken, isAdmin, async (req, res)=>{
 
 router.delete('/:idproduct', verifyToken, isAdmin, (req, res)=>{
     controller.deleteProduct(req.params.idproduct)
-    .then(() => {response.success(req, res, 200, `El producto con id: ${req.params.idproduct}, se eliminó con éxito!`)})
+    .then(() => {response.success(req, res, 200, `El producto con id: ${req.params.idproduct}, se eliminó con éxito!`, 'Eliminado')})
     .catch(e => {response.error(req, res, 500, 'Error interno', e)})
 })
 

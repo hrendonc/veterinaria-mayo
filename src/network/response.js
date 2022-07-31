@@ -1,8 +1,8 @@
 exports.success = (req, res, status, mensaje, data)=>{
     res.status(status).send({
         error: null,
-        body: data,
-        message: mensaje
+        message: mensaje,
+        body: data
     })
 }
 
