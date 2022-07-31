@@ -13,98 +13,94 @@
 </head>
 
 <body>
-  <div class="container-sm">
-    <div class="d-flex justify-content-between align-items-center flex-row bd-highlight">
-      <div class="p-2 bd-highlight">
-        <h1 class="text-start text-secondary">Veterinaria "El Ganadero"</h1>
-      </div>
-      <div class="p-2 bd-highlight text-secondary">Usuario en turno: <% if(user)%> <span id="user"><b>
-              <%= user.user %>
-            </b></span> | <a class="nav-link d-inline" href="/logout"> Log out</a>
-          <span hidden id="token">
-            <%= user.token %>
-          </span>
-      </div>
-    </div>
-    
-    <div id="message"></div>
-
-    <hr>
-
-    <div class="row" id="cards">
-      <form action="" method="post">
-        <div class="d-flex justify-content-center flex-row bd-highlight">
-          <div class="p-2 bd-highlight"><input type="number" class="form-control" name="producto" id="producto"
-              placeholder="Código del Producto" autofocus></div>
-          <div class="p-2 bd-highlight"><input type="submit" class="btn btn-secondary" id="btn" value="Agregar"></div>
+    <div class="container-sm">
+        <div class="d-flex justify-content-between align-items-center flex-row bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h1 class="text-start text-secondary">Veterinaria "El Ganadero"</h1>
+            </div>
+            <div class="p-2 bd-highlight text-secondary">
+                <span class="material-symbols-outlined align-text-bottom">person</span>
+                <% if(user)%> <span id="user" class="me-2"><b><%= user.user %></b></span>
+                <span>|<a class="nav-link d-inline mx-2" href="/logout">Log out</a></span>
+                <span>|<a class="nav-link d-inline material-symbols-outlined align-text-bottom mx-2" href="/settings">settings</a></span>
+                <span hidden id="token"><%= user.token %></span>
+            </div>
         </div>
-      </form>
+
+        <div id="message"></div>
+
+        <hr>
+
+        <div class="row" id="cards">
+            <form action="" method="post">
+                <div class="d-flex justify-content-center flex-row bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <input type="number" class="form-control" name="producto" id="producto" placeholder="Código del Producto" autofocus>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <input type="submit" class="btn btn-secondary" id="btn" value="Agregar">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <hr>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Acción</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody id="items"></tbody>
+            <tfoot>
+                <tr id="footer">
+                    <th scope="row" colspan="5">Sistema listo para vender productos!</th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary btn-lg mt-3 mb-3" id="vender-carrito">Realizar Venta</button>
+        </div>
+
     </div>
 
-    <hr>
+    <template id="template-footer">
+        <td></td>
+        <th class="fs-5 fw-bold" scope="row" colspan="2">Total de productos</th>
 
-    <table class="table">
-      <thead>
+        <td class="fs-5 fw-bold"></td>
+        <td>
+            <button class="btn btn-danger btn-sm" id="vaciar-carrito">
+                Vaciar todo
+            </button>
+        </td>
+        <td class="fs-4 fw-bold">$<span>5000</span></td>
+    </template>
+
+    <template id="template-carrito">
         <tr>
-          <th scope="col">Código</th>
-          <th scope="col">Producto</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Acción</th>
-          <th scope="col">Total</th>
+            <td>id</td>
+            <td>Café</td>
+            <td>$99.90</td>
+            <td>1</td>
+            <td>
+                <button class="btn btn-info btn-sm">
+                    +
+                </button>
+                <button class="btn btn-danger btn-sm">
+                    -
+                </button>
+            </td>
+            <td>$<span>500</span></td>
         </tr>
-      </thead>
-      <tbody id="items"></tbody>
-      <tfoot>
-        <tr id="footer">
-          <th scope="row" colspan="5">Sistema listo para vender productos!</th>
-        </tr>
-      </tfoot>
-    </table>
-
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary btn-lg mt-3 mb-3" id="vender-carrito">Realizar Venta</button>
-    </div>
-
-    <a class="border border-dark text-primary bg-danger bg-opacity-25 shadow-lg pe-3 ps-3 mb-3 rounded position-absolute bottom-0 end-0 material-symbols-outlined p-2 m-1 nav-link "
-      href="/settings" >
-      <h1>tune</h1>
-    </a>
-
-    </span>
-
-  </div>
-
-  <template id="template-footer">
-    <td></td>
-    <th class="fs-5 fw-bold" scope="row" colspan="2">Total de productos</th>
-
-    <td class="fs-5 fw-bold"></td>
-    <td>
-      <button class="btn btn-danger btn-sm" id="vaciar-carrito">
-        Vaciar todo
-      </button>
-    </td>
-    <td class="fs-4 fw-bold">$<span>5000</span></td>
-  </template>
-
-  <template id="template-carrito">
-    <tr>
-      <td>id</td>
-      <td>Café</td>
-      <td>$99.90</td>
-      <td>1</td>
-      <td>
-        <button class="btn btn-info btn-sm">
-          +
-        </button>
-        <button class="btn btn-danger btn-sm">
-          -
-        </button>
-      </td>
-      <td>$<span>500</span></td>
-    </tr>
-  </template>
+    </template>
 
 <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
