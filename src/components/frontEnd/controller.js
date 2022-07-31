@@ -21,5 +21,5 @@ exports.settings = (req, res)=>{
 }
 
 exports.productos = (req, res)=>{
-    res.render('productos_add', {fullProducto:''})
+    res.render('productos', {fullProducto:''})
 }

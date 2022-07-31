@@ -5,7 +5,7 @@ const router = express.Router()
 const {verifyToken, isAdmin} = require('../../middlewares/authJwt')
 const {checkDuplicateProductOrCode} = require('../../middlewares/verifyProducts')
 
-router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, async (req, res)=>{    
+router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, (req, res)=>{    
     /*try{
         const ok = await controller.addProducto(req.body)
 
@@ -22,8 +22,7 @@ router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, async (req, 
     
     controller.addProducto(req.body)
     .then((fullProducto)=>{
-        //response.success(req, res, 200, fullProducto)
-        res.render('productos_add', {fullProducto})
+        response.success(req, res, 200, 'Producto registrado!',fullProducto)
     })
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })

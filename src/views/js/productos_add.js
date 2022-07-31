@@ -3,17 +3,11 @@ const templateProductos = document.getElementById('template-productos').content
 const fragment = document.createDocumentFragment()
 
 const form = document.querySelector('form')
-const message = document.getElementById('message') 
+const message = document.getElementById('message')
+const title = document.getElementById('exampleModalLabel') 
 
 document.addEventListener('DOMContentLoaded', ()=>{
-    if(message.innerHTML != ''){
-        message.innerHTML = `
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>${message.innerHTML}</strong>
-                    <button type="button" id="btnAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                `;
-    }
+    
     pintarProductos()
 })
 
@@ -41,13 +35,22 @@ async function addData (data){
     const myData = await res.json()
 
     if (!res.ok) {
+        title.innerHTML = `
+        <strong>Error!</strong>
+            `;
         message.innerHTML = `
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Error de autenticación!</strong><hr> ${myData.error}
-                <button type="button" id="btnAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        <strong class="alert alert-warning" role="alert">${myData.message}</strong>
             `;
         return
+    }
+
+    if(res.ok){
+        title.innerHTML = `
+        <strong>Producto Agregado!</strong>
+            `;
+        message.innerHTML = `
+            <strong class="alert alert-warning" role="alert">El producto ${myData.body.nombre} ha sido registrado correctamente!</strong>
+        `;
     }
         
     //window.location.assign("/productos_fe")
