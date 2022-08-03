@@ -8,7 +8,7 @@
 
     <h1>Guardar un producto en la Base de Datos</h1>
 
-    <form>
+    <form id="formAdd">
         <div class="input-group mb-3">
             <span class="input-group-text">Código:</span>
             <input type="number" class="form-control" name="codigo" id="codigo" required autofocus>
@@ -40,13 +40,32 @@
         </div>
     </form>
 
-    <!-- Modal -->
+    <!-- Modal de respuestas -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5> <!-- Muestra el título recibido-->
                     <a type="button" class="btn-close" href="/productos_fe" aria-label="Close"></a>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="message"></div> <!-- Muestra el mensaje recibido -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición -->
+    <div class="modal fade" id="editproducts" tabindex="-1" aria-labelledby="editproducts" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <form action="" method="">
+                        <input type="text" name="user" placeholder="Nombre" required>
+                        <input type="password" name="pass" placeholder="Password" required>
+                        <input type="email" name="email" placeholder="Correo Electrónico" required>
+                        <input type="submit" value="Enviar">
+                    </form>
                 </div>
                 <div class="modal-body text-center">
                     <div id="message"></div> <!-- Muestra el mensaje recibido -->

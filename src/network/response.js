@@ -1,7 +1,7 @@
-exports.success = (req, res, status, mensaje, data)=>{
+exports.success = (req, res, status, message, data)=>{
     res.status(status).send({
         error: null,
-        message: mensaje,
+        message,
         body: data
     })
 }

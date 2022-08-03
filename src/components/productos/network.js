@@ -44,7 +44,7 @@ router.patch('/:idproduct', verifyToken, isAdmin, async (req, res)=>{
         const ok = await controller.updateProducto(req.params, req.body)
 
         if(ok){
-            response.success(req, res, 200, ok)
+            response.success(req, res, 200, 'Producto actualizado con exito.', ok)
             //res.redirect('/addproducto')
         }
         if(!ok){
@@ -59,7 +59,7 @@ router.patch('/:idproduct', verifyToken, isAdmin, async (req, res)=>{
 
 router.delete('/:idproduct', verifyToken, isAdmin, (req, res)=>{
     controller.deleteProduct(req.params.idproduct)
-    .then(() => {response.success(req, res, 200, `El producto con id: ${req.params.idproduct}, se eliminó con éxito!`, 'Eliminado')})
+    .then(() => {response.success(req, res, 200, `Producto eliminado con éxito!`, 'Eliminado')})
     .catch(e => {response.error(req, res, 500, 'Error interno', e)})
 })
 
