@@ -1,18 +1,75 @@
 const items = document.getElementById('items')
 const templateProductos = document.getElementById('template-productos').content
+const templateInputs = document.getElementById('template-inputs').content
 const fragment = document.createDocumentFragment()
 
-const formAdd = document.getElementById('formAdd')
-
-const message = document.getElementById('message')
+const form = document.querySelector('form')
 const title = document.getElementById('exampleModalLabel')
-
+const message = document.getElementById('message')
 const tabla = document.querySelector('table')
-
+const tituloForm = document.getElementById('tituloForm')
 
 document.addEventListener('DOMContentLoaded', ()=>{ 
+    pintarInputs()
     pintarProductos()
 })
+    
+// Escuchar el envio de datos del formulario y guardarlos en un objeto
+form.addEventListener('submit', e=>{
+    e.preventDefault()
+    let data = Object.fromEntries(
+        new FormData(e.target)
+    )
+
+    const btnPri = e.target.childNodes[15].children[0].classList.contains("btn-primary")
+    const btnWar = e.target.childNodes[15].children[0].classList.contains("btn-warning")
+    
+    if (btnPri) {
+        addData(data)
+    }
+    if (btnWar) {
+        editDataApi(data)
+    }
+     
+    e.stopPropagation()
+})
+
+// Escuchar el evento de acciones y enviarlo a la opción correspondiente
+items.addEventListener('click', e =>{
+    let editar = e.target.classList.contains('btn-info')
+    let editarIco = e.target.classList.contains('bi-pencil')
+    let eliminar = e.target.classList.contains('btn-danger')
+    let eliminarIco = e.target.classList.contains('bi-trash3')
+
+    if(editar) editData(e.target.dataset.id)
+    if(editarIco) editData(e.target.dataset.id)
+    if(eliminar) deleteData(e.target.dataset.id)
+    if(eliminarIco) deleteData(e.target.dataset.id)
+
+    e.stopPropagation()
+})
+
+//**** F U N C I O N E S ****//
+
+async function pintarInputs() {
+    try {
+        form.innerHTML = ''
+        templateInputs.getElementById('codigo')
+        templateInputs.getElementById('nombre')
+        templateInputs.getElementById('precio')
+        templateInputs.getElementById('costo')
+        templateInputs.getElementById('stock')
+        templateInputs.getElementById('descripcion')
+
+        const clone = templateInputs.cloneNode(true)
+        fragment.appendChild(clone)
+
+        form.appendChild(fragment) 
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
 
 // Consumir Productos de la API y mostrarlos
 async function pintarProductos(){
@@ -41,32 +98,6 @@ async function pintarProductos(){
     }
     catch(e){ console.log(e) }
 }
-
-// Escuchar el envio de datos del formulario y guardarlos en un objeto
-formAdd.addEventListener('submit', e=>{
-    e.preventDefault()
-    let data = Object.fromEntries(
-        new FormData(e.target)
-    )
-     
-    addData(data)
-    e.stopPropagation()
-})
-
-// Escuchar el evento de acciones y enviarlo a la opción correspondiente
-items.addEventListener('click', e =>{
-    let editar = e.target.classList.contains('btn-info')
-    let editarIco = e.target.classList.contains('bi-pencil')
-    let eliminar = e.target.classList.contains('btn-danger')
-    let eliminarIco = e.target.classList.contains('bi-trash3')
-
-    if(editar) editData(e.target.dataset.id)
-    if(editarIco) editData(e.target.dataset.id)
-    if(eliminar) deleteData(e.target.dataset.id)
-    if(eliminarIco) deleteData(e.target.dataset.id)
-
-    e.stopPropagation()
-})
 
 // Función para agregar productos
 async function addData (data){
@@ -127,7 +158,7 @@ async function deleteData (data){
     }
 }
 
-// Función para crear el Formulario para enviar productos a editar
+// Función para crear el Formulario para Editar productos
 function editData (data){
     let findData = {}
     let id
@@ -143,62 +174,67 @@ function editData (data){
                 precio: tabla.rows[i].cells[2].lastChild.innerHTML,
                 stock: tabla.rows[i].cells[3].innerHTML,
                 id: tabla.rows[i].cells[4].lastElementChild.getAttribute("data-id")
-            }
-
-            title.innerHTML = `
-            <strong>Actualizar un producto</strong>
-                `;
-            message.innerHTML = `
-
-            <form id="formEdit">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Código:</span>
-                    <input type="number" class="form-control" name="codigo" id="codigo" autofocus value="${findData.codigo}">
-                </div>
-                <div class="input-group mb-3 mt-3">
-                    <span class="input-group-text">Nombre:</span>
-                    <input type="text" class="form-control" name="nombre" id="nombre" value="${findData.nombre}">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Precio:</span>
-                    <input type="number" class="form-control" name="precio" id="precio" value="${findData.precio}">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Stock:</span>
-                    <input type="number" class="form-control" name="stock" id="stock" value="${findData.stock}">
-                </div>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <input type="submit" class="btn btn-primary btn-lg" id="btn" value="Actualizar Producto">
-                </div>
-            </form>
-
-            `;
+            }                     
+        break
         }   
     }
+
+    tituloForm.innerHTML = `
+                <strong>Actualizar un producto</strong>
+            `
+    try {
+        form.innerHTML = ''
+        templateInputs.getElementById('id').setAttribute("value",`${id}`)
+        templateInputs.getElementById('codigo').setAttribute("placeholder",`${findData.codigo}`)
+        templateInputs.getElementById('nombre').setAttribute("placeholder",`${findData.nombre}`)
+        templateInputs.getElementById('precio').setAttribute("placeholder",`${findData.precio}`)
+        templateInputs.getElementById('costo').setAttribute("placeholder","")
+        templateInputs.getElementById('stock').setAttribute("placeholder",`${findData.stock}`)
+        templateInputs.getElementById('descripcion').setAttribute("placeholder","")
+        templateInputs.getElementById('descripcion').setAttribute("placeholder","")
+        templateInputs.getElementById('btn').setAttribute("placeholder","Actualizar Producto")
+        templateInputs.getElementById('btn').setAttribute("class","btn btn-warning btn-lg")
+
+        templateInputs.getElementById('codigo').removeAttribute("required")
+        templateInputs.getElementById('nombre').removeAttribute("required")
+        templateInputs.getElementById('precio').removeAttribute("required")
+        templateInputs.getElementById('costo').removeAttribute("required")
+        templateInputs.getElementById('stock').removeAttribute("required")
+        templateInputs.getElementById('descripcion').removeAttribute("required")
+        templateInputs.getElementById('descripcion').removeAttribute("required")
+        templateInputs.getElementById('btn').removeAttribute("required")
+        templateInputs.getElementById('btn').removeAttribute("required")
+
+        const clone = templateInputs.cloneNode(true)
+        fragment.appendChild(clone)
+
+        form.appendChild(fragment) 
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
-const formEdit = document.getElementById('formEdit')
-
-// Escuchar el envio de datos del formulario y guardarlos en un objeto
-formEdit.addEventListener('submit', e => {
-    e.preventDefault()
-    let newData = Object.fromEntries(
-        new FormData(e.target)
-    )
+// Función para Editar productos
+async function editDataApi(newData){
 
     console.log(newData)
 
-    editDataApi(newData)
-    e.stopPropagation()
-})
+    const saveData = {
+        codigo: newData.codigo,
+        costo: newData.costo,
+        descripcion: newData.descripcion,
+        nombre: newData.nombre,
+        precio: newData.precio,
+        stock: newData.stock
+    }
 
-async function editDataApi(newData){
-    const res = await fetch(`/productos/${findData.id}`, {
+    const res = await fetch(`/productos/${newData.id}`, {
         method: "PATCH",
         headers:{
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify(saveData)
     })
     const myData = await res.json()
 
@@ -219,7 +255,6 @@ async function editDataApi(newData){
         message.innerHTML = `
             <strong class="alert alert-warning" role="alert">El artículo < ${myData.body.nombre} > se actualizó con exito.</strong>
         `;
-        console.log(myData.body.nombre)
         return
     }
 }
