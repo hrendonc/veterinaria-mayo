@@ -32,7 +32,7 @@ async function updateProducto(id, data){
         }
     }
     catch (e){
-        console.log('[Update-Store] - ', e)
+        console.log('[Update-Store] - ', e.message)
         return false
     }    
 }

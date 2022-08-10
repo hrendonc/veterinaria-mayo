@@ -22,7 +22,7 @@ router.post('/', verifyToken, isAdmin, checkDuplicateProductOrCode, (req, res)=>
     
     controller.addProducto(req.body)
     .then((fullProducto)=>{
-        response.success(req, res, 200, 'Producto registrado!',fullProducto)
+        response.success(req, res, 200, 'Producto registrado correctamente!',fullProducto)
     })
     .catch(e=>response.error(req, res, 400, 'Error interno', e))
 })

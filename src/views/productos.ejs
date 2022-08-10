@@ -6,20 +6,20 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-    <h1 id="tituloForm">Guardar un producto en la Base de Datos</h1>
+    <h1 id="tituloForm"></h1>
 
     <!-- Formulario -->
-    <form></form> 
+    <form name="loginForm"></form> 
 
     <!-- Modal de respuestas -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-success text-white fw-bold bg-opacity-75">
                     <h5 class="modal-title" id="exampleModalLabel"></h5> <!-- Muestra el título recibido-->
-                    <a type="button" class="btn-close" href="/productos_fe" aria-label="Close"></a>
+                    <button type="button" id="btnRepintar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center">
+                <div class="modal-body text-center text-dark fw-bold bg-success bg-opacity-25">
                     <div id="message"></div> <!-- Muestra el mensaje recibido -->
                 </div>
             </div>
@@ -34,7 +34,9 @@
                 <th scope="col">Código</th>
                 <th scope="col">Producto</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Costo</th>
                 <th scope="col">Stock</th>
+                <th scope="col">Descripción</th>
                 <th scope="col">Acción</th>
             </tr>
         </thead>
@@ -48,7 +50,7 @@
         </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Código:</span>
-            <input type="number" class="form-control" name="codigo" id="codigo" required autofocus>
+            <input type="number" class="form-control" name="codigo" id="codigo" required>
         </div>
         <div class="input-group mb-3 mt-3">
             <span class="input-group-text">Nombre:</span>
@@ -72,7 +74,7 @@
         </div>
 
         <div class="d-grid gap-2 col-6 mx-auto">
-            <input type="submit" class="btn btn-primary btn-lg" id="btn" value="Guardar Producto" data-bs-toggle="modal"
+            <input type="submit" id="btn" value="Guardar Producto" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
         </div>
     </template>
@@ -81,8 +83,10 @@
         <tr>
             <th scope="row">Codigo</th>
             <td>Medicina</td>
-            <td>$ <span>199</span></td>
+            <td>$ <span id="precio">200</span></td>
+            <td>$ <span id="costo">150</span></td>
             <td>20</td>
+            <td>Aquí va la descripción del producto</td>
             <td>
                 <button class="btn btn-info btn-sm">
                     <i class="bi bi-pencil"></i>
