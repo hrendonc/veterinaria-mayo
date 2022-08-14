@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     pintarInputs()
     pintarProductos()
 })
-    
+
 // Escuchar el envio de datos del formulario y guardarlos en un objeto
 form.addEventListener('submit', e=>{
     e.preventDefault()
@@ -171,6 +171,7 @@ function editData (data){
     for(let i=1; i<tabla.rows.length; i++){
 
         id = tabla.rows[i].cells[6].firstElementChild.getAttribute('data-id')
+        console.log(tabla.rows[i].cells[5].innerHTML)
         
         if(id === data){
             findData = {
@@ -179,15 +180,15 @@ function editData (data){
                 precio: tabla.rows[i].cells[2].lastChild.innerHTML,
                 costo: tabla.rows[i].cells[3].lastChild.innerHTML,
                 stock: tabla.rows[i].cells[4].innerHTML,
-                descripcion: tabla.rows[i].cells[5].lastChild.innerHTML,
+                descripcion: tabla.rows[i].cells[5].innerHTML,
                 id: tabla.rows[i].cells[6].firstElementChild.getAttribute("data-id")
-            }                     
+            }                    
         break
         }   
     }
 
     tituloForm.innerHTML = `Actualizar un producto`
-
+    
     try {
         form.innerHTML = ''
         templateInputs.getElementById('id').setAttribute("value",`${id}`)
@@ -206,8 +207,6 @@ function editData (data){
         templateInputs.getElementById('costo').removeAttribute("required")
         templateInputs.getElementById('stock').removeAttribute("required")
         templateInputs.getElementById('descripcion').removeAttribute("required")
-        templateInputs.getElementById('btn').removeAttribute("required")
-        templateInputs.getElementById('btn').removeAttribute("required")
 
         const clone = templateInputs.cloneNode(true)
         fragment.appendChild(clone)
