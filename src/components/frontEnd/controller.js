@@ -1,4 +1,3 @@
-
 exports.login = (req, res)=>{
     res.render('login', {body:''})
 }
@@ -22,4 +21,8 @@ exports.settings = (req, res)=>{
 
 exports.productos = (req, res)=>{
     res.render('productos', {fullProducto:''})
+}
+
+exports.usuarios = (req, res)=>{
+    res.render('usuarios')
 }
