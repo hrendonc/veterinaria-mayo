@@ -1,19 +1,103 @@
 <%- include('partials/head'); %>
 
-<%- include('partials/panel'); %>
+    <%- include('partials/panel'); %>
 
-<%- include('partials/titulo'); %>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <%- include('partials/titulo', {titulo: 'Usuarios' }); %>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h3 id="tituloForm"></h3>
 
-    </main>
+                <!-- Formulario -->
+                <form name="loginForm"></form>
+
+                <!-- Modal de respuestas -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-success text-white fw-bold bg-opacity-75">
+                                <h5 class="modal-title" id="exampleModalLabel"></h5> <!-- Muestra el título recibido-->
+                                <button type="button" id="btnRepintar" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center text-dark fw-bold bg-success bg-opacity-25">
+                                <div id="message"></div> <!-- Muestra el mensaje recibido -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="items"></tbody>
+                    </table>
+                </div>
+
+                <template id="template-inputs">
+                    <div class="input-group mb-3">
+                        <input type="hidden" class="form-control" name="id" id="id">
+                    </div>
+                    <div class="input-group mb-3 mt-3">
+                        <span class="input-group-text">Usuario:</span>
+                        <input type="text" class="form-control" name="user" id="user">
+                    </div>
+                    <div class="input-group mb-3 mt-3">
+                        <span class="input-group-text">Password:</span>
+                        <input type="text" class="form-control" name="pass" id="pass">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Correo:</span>
+                        <input type="email" class="form-control" name="email" id="email">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Rol:</span>
+                        <input type="text" class="form-control" name="rol" id="rol">
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <input type="submit" id="btn" value="Registrar Usuario" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                    </div>
+                </template>
+
+                <template id="template-usuarios">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>admin</td>
+                        <td>admin@correo.com</td>
+                        <td>
+                            <button class="btn btn-info btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </template>
+
+        </main>
+
+        </div>
+        </div>
+
+        <script src="js/usuarios.js"></script>
+
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
 
 
-</div>
-</div>
+        </body>
 
-
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-  </body>
-</html>
+        </html>

@@ -37,6 +37,8 @@ exports.updateUserById = async (req, res)=>{
     const email = await User.findOne({email: req.body.email})
     if(email) return res.status(400).json({message: 'Mail exist!'})
 
+    req.body.pass = await User.encryptPass(req.body.pass)
+
     try {
         const updated = await User.findByIdAndUpdate(req.params.idUser, req.body, {new: true})
         response.success(req, res, 200, 'Actualizado Correctamente', updated) 

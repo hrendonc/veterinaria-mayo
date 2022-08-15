@@ -5,9 +5,9 @@ const {login, logout, carrito, settings, productos, usuarios} = require('./contr
 
 router.get('/', login)
 router.get('/logout', logout)
-router.get('/carrito', verifyToken, carrito);
-router.get('/settings', verifyToken, isAdmin, settings)
-router.get('/productos_frontEnd', verifyToken, isAdmin, productos)
-router.get('/usuarios_frontEnd', verifyToken, isAdmin, usuarios)
+router.get('/carrito', carrito);
+router.get('/settings', settings)
+router.get('/productos_frontEnd', productos)
+router.get('/usuarios_frontEnd', usuarios)
 
 module.exports = router

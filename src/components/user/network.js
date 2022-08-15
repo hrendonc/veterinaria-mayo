@@ -5,7 +5,7 @@ const router = express.Router()
 const {verifyToken, isAdmin} = require('../../middlewares/authJwt')
 const {checkRolesExisted, checkDuplicateUserOrMail} = require('../../middlewares/verifySignup')
 
-router.get('/', verifyToken, isAdmin, (req, res)=>{
+router.get('/', (req, res)=>{
     controller.getUsers()
     .then((usersList)=>{
         response.success(req, res, 200, usersList)
@@ -15,7 +15,7 @@ router.get('/', verifyToken, isAdmin, (req, res)=>{
     })
 })
 
-router.post('/', verifyToken, isAdmin, checkRolesExisted, checkDuplicateUserOrMail, (req, res)=>{
+router.post('/', checkRolesExisted, checkDuplicateUserOrMail, (req, res)=>{
     controller.addUser(req.body)
     .then(data=>{
         response.success(req, res, 200, 'Informacion Registrada!', data)
@@ -25,9 +25,9 @@ router.post('/', verifyToken, isAdmin, checkRolesExisted, checkDuplicateUserOrMa
     })
 })
 
-router.patch('/:idUser', verifyToken, isAdmin, controller.updateUserById)
+router.patch('/:idUser', controller.updateUserById)
 
-router.delete('/:idUser', verifyToken, isAdmin, controller.deleteUser)
+router.delete('/:idUser', controller.deleteUser)
 
 
 

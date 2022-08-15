@@ -6,7 +6,6 @@ const {createRoles} = require('./libs/initialSetup')
 
 const path = require('path')
 const session = require('express-session')
-let ejs = require('ejs');
 
 // Conexión a la DB
 db()
@@ -17,6 +16,7 @@ createRoles()
 app.use(cors())
 
 // Establecer el motor de vistas
+const ejs = require('ejs');
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
