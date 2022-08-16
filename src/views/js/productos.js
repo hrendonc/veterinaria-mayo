@@ -242,7 +242,7 @@ async function editDataApi(newData){
 
     if (!res.ok) {
         title.innerHTML = `Error!`;
-        message.innerHTML = `<strong >${myData.error}`;
+        message.innerHTML = `<strong >${myData.error}</strong >`;
         return
     }
 

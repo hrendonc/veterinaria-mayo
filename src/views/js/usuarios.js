@@ -49,7 +49,7 @@ items.addEventListener('click', e =>{
     e.stopPropagation()
 })
 
- btnRepintar.addEventListener('click', e =>{
+btnRepintar.addEventListener('click', e =>{
     pintarInputs()
     pintarUsuarios()
     e.stopPropagation()
@@ -62,12 +62,11 @@ async function pintarInputs() {
     tituloForm.innerHTML = `Registrar un usuario`
 
     try {
-        form.innerHTML = ''
+        form.innerHTML = ``
         // Despues de actualizar se debe borrar el contenido
-        templateInputs.getElementById('user').removeAttribute('placeholder')
-        templateInputs.getElementById('email').removeAttribute('placeholder')
-        templateInputs.getElementById('pass').removeAttribute('placeholder')
-
+        templateInputs.getElementById('user').removeAttribute('value')
+        templateInputs.getElementById('email').removeAttribute('value')
+        templateInputs.getElementById('pass').removeAttribute('value')
         templateInputs.getElementById('user')
         templateInputs.getElementById('email')
         templateInputs.getElementById('pass')
@@ -81,7 +80,7 @@ async function pintarInputs() {
     } catch (error) {
         console.log(error)
     }
-    //document.loginForm.codigo.focus()
+    document.loginForm.user.focus()
 }
 
 // Consumir Productos de la API y mostrarlos
@@ -91,7 +90,7 @@ async function pintarUsuarios(){
         const data = await res.json()
         const user = data.message    
         
-        items.innerHTML = ''
+        items.innerHTML = ``
         let number = 0
 
         for(x in user){
@@ -177,7 +176,7 @@ function editData (data){
     tituloForm.innerHTML = `Actualizar un usuario`
     
     try {
-        form.innerHTML = ''
+        form.innerHTML = ``
         templateInputs.getElementById('id').setAttribute("value",`${id}`)
         templateInputs.getElementById('user').setAttribute("value",`${findData.user}`)
         templateInputs.getElementById('email').setAttribute("value",`${findData.email}`)
@@ -196,7 +195,7 @@ function editData (data){
         console.log(error)
     }
 
-    //document.loginForm.codigo.focus()
+    document.loginForm.user.focus()
 }
 
 // Función para Editar productos
@@ -222,6 +221,7 @@ async function editDataApi(newData){
         message.innerHTML = `El usuario < ${myData.body.user} > se actualizó con exito. `;
         return
     }
+
 }
 
         
