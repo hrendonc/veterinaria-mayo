@@ -1,17 +1,17 @@
 const Model = require('./model')
-const Role = require('../auth/role')
+const Role = require('../auth/model')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 async function addUser(data){   
     newUser = new Model(data)
-
-    if(data.roles){
-        const foundRoles = await Role.find({name: {$in: data.roles}})
-        newUser.roles = foundRoles.map(role => role._id)
+    
+    if(data.role){
+        const foundRole = await Role.findOne({name: data.role})
+        newUser.role = foundRole._id
     }else{
         const role = await Role.findOne({name: 'user'})
-        newUser.roles = [role._id]
+        newUser.role = role._id
     }
 
     newUser.pass = await Model.encryptPass(newUser.pass)
@@ -25,6 +25,7 @@ async function addUser(data){
 
 async function getUsers(){
     const users = await Model.find()
+    
     return users
 }
 

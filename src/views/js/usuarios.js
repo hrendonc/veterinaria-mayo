@@ -67,9 +67,11 @@ async function pintarInputs() {
         templateInputs.getElementById('user').removeAttribute('value')
         templateInputs.getElementById('email').removeAttribute('value')
         templateInputs.getElementById('pass').removeAttribute('value')
+        templateInputs.getElementById('role').removeAttribute('value')
         templateInputs.getElementById('user')
         templateInputs.getElementById('email')
         templateInputs.getElementById('pass')
+        templateInputs.getElementById('role')
         templateInputs.getElementById('btn').setAttribute("value","Registrar Usuario")
         templateInputs.getElementById('btn').setAttribute("class","btn btn-primary btn-lg")
 
@@ -97,7 +99,8 @@ async function pintarUsuarios(){
             number ++
             templateUsuarios.querySelector('th').textContent = number
             templateUsuarios.querySelectorAll('td')[0].textContent = user[x].user
-            templateUsuarios.querySelectorAll('td')[1].textContent = user[x].email            
+            templateUsuarios.querySelectorAll('td')[1].textContent = user[x].email
+            templateUsuarios.querySelectorAll('td')[2].textContent = user[x].role           
             templateUsuarios.querySelector('.btn-info').dataset.id = user[x]._id
             templateUsuarios.querySelector('.btn-danger').dataset.id = user[x]._id       
             templateUsuarios.querySelector('.bi-pencil').dataset.id = user[x]._id
@@ -161,13 +164,14 @@ function editData (data){
     let id = 0
 
     for(let i=1; i<tabla.rows.length; i++){
-        id = tabla.rows[i].cells[3].firstElementChild.getAttribute('data-id')
+        id = tabla.rows[i].cells[4].firstElementChild.getAttribute('data-id')
 
         if(id === data){
             findData = {
                 id,
                 user: tabla.rows[i].cells[1].innerHTML,
                 email: tabla.rows[i].cells[2].innerHTML,
+                role: tabla.rows[i].cells[3].innerHTML,
             }
         break
         }   
@@ -180,12 +184,9 @@ function editData (data){
         templateInputs.getElementById('id').setAttribute("value",`${id}`)
         templateInputs.getElementById('user').setAttribute("value",`${findData.user}`)
         templateInputs.getElementById('email').setAttribute("value",`${findData.email}`)
+        templateInputs.getElementById('role').setAttribute("value",`${findData.role}`)
         templateInputs.getElementById('btn').setAttribute("value","Actualizar Producto")
         templateInputs.getElementById('btn').setAttribute("class","btn btn-warning btn-lg")
-
-        templateInputs.getElementById('id').removeAttribute("required")
-        templateInputs.getElementById('user').removeAttribute("required")
-        templateInputs.getElementById('email').removeAttribute("required")
         
         const clone = templateInputs.cloneNode(true)
         fragment.appendChild(clone)
@@ -212,7 +213,7 @@ async function editDataApi(newData){
 
     if (!res.ok) {
         title.innerHTML = `Error!`;
-        message.innerHTML = `<strong >${myData.error}`;
+        message.innerHTML = `<strong >${myData.error}</strong >`;
         return
     }
 

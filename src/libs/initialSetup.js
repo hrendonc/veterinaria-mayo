@@ -1,4 +1,4 @@
-const Role = require('../components/auth/role')
+const Role = require('../components/auth/model')
 
 exports.createRoles = async ()=>{
     try {

@@ -21,9 +21,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // Escuchar el envio de datos del formulario y guardarlos en un objeto
 form.addEventListener('submit', e=>{
     e.preventDefault()
+
+
     let data = Object.fromEntries(
         new FormData(e.target)
     )
+
+    if (!data.codigo || !data.nombre || !data.precio || !data.costo || !data.stock ) {
+        title.innerHTML = `Error!`;
+        message.innerHTML = `No se recibieron los datos requeridos`;
+        return
+    }
 
     const btnPri = e.target.childNodes[15].children[0].classList.contains("btn-primary")
     const btnWar = e.target.childNodes[15].children[0].classList.contains("btn-warning")
@@ -171,7 +179,6 @@ function editData (data){
     for(let i=1; i<tabla.rows.length; i++){
 
         id = tabla.rows[i].cells[6].firstElementChild.getAttribute('data-id')
-        console.log(tabla.rows[i].cells[5].innerHTML)
         
         if(id === data){
             findData = {
@@ -200,13 +207,6 @@ function editData (data){
         templateInputs.getElementById('descripcion').setAttribute("placeholder",`${findData.descripcion}`)
         templateInputs.getElementById('btn').setAttribute("value","Actualizar Producto")
         templateInputs.getElementById('btn').setAttribute("class","btn btn-warning btn-lg")
-
-        templateInputs.getElementById('codigo').removeAttribute("required")
-        templateInputs.getElementById('nombre').removeAttribute("required")
-        templateInputs.getElementById('precio').removeAttribute("required")
-        templateInputs.getElementById('costo').removeAttribute("required")
-        templateInputs.getElementById('stock').removeAttribute("required")
-        templateInputs.getElementById('descripcion').removeAttribute("required")
 
         const clone = templateInputs.cloneNode(true)
         fragment.appendChild(clone)

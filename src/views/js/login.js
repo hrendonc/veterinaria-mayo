@@ -22,6 +22,7 @@ form.addEventListener('submit', e=>{
 })
 
 async function login (data){
+    console.log(data)
     const res = await fetch('/auth/signin', {
         method: "POST",
         headers:{

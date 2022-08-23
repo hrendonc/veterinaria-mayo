@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 const User = require('../components/user/model')
-const Role = require('../components/auth/role')
+const Role = require('../components/auth/model')
 const response = require('../network/response')
 
 exports.verifyToken = async (req, res, next)=>{
@@ -27,7 +27,7 @@ exports.verifyToken = async (req, res, next)=>{
 
 exports.isAdmin = async(req, res, next)=>{
     const userFound = await User.findById(req.userId)
-    const rolesFound = await Role.find({_id: {$in: userFound.roles}})
+    const rolesFound = await Role.find({_id: {$in: userFound.role}})
 
     for(let i=0; i<rolesFound.length; i++){
         if(rolesFound[i].name === 'admin'){
@@ -40,7 +40,7 @@ exports.isAdmin = async(req, res, next)=>{
 
 exports.isUser = async(req, res, next)=>{
     const userFound = await User.findById(req.userId)
-    const rolesFound = await Role.find({_id: {$in: userFound.roles}})
+    const rolesFound = await Role.find({_id: {$in: userFound.role}})
 
     for(let i=0; i<rolesFound.length; i++){
         if(rolesFound[i].name === 'user'){
@@ -49,6 +49,7 @@ exports.isUser = async(req, res, next)=>{
         }
     }
     return response.error(req, res, 400, 'Es necesario registrarse', 'Require Register')
+    //return res.render('login', {body: 'No puedes acceder si no eres un usuario registrado'})
 }
 
 exports.setHeader = (req, res, next)=>{

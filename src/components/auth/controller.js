@@ -1,11 +1,11 @@
 const User = require('../user/model')
 const response = require('../../network/response')
 const jwt = require('jsonwebtoken')
-const Role = require('./role')
+const Role = require('./model')
 require('dotenv').config()
 
 exports.signUp = async (req, res)=>{
-    const {user, pass, email, roles} = req.body
+    const {user, pass, email, role} = req.body
 
     if(!pass || !user || !email) return response.error(req, res, 400, 'No se recibieron los datos esperados', 'Algún dato requerido no fue introducido')
 
@@ -16,12 +16,12 @@ exports.signUp = async (req, res)=>{
             email
         })
 
-        if(roles){
-            const foundRoles = await Role.find({name: {$in: roles}})
-            newUser.roles = foundRoles.map(role => role._id)
+        if(role){
+            const foundRoles = await Role.find({name: {$in: role}})
+            newUser.role = foundRoles._id
         }else{
             const role = await Role.findOne({name: 'user'})
-            newUser.roles = [role._id]
+            newUser.role = role._id
         }
     
         const savedUser = await newUser.save()
@@ -39,7 +39,7 @@ exports.signIn = async (req, res)=>{
 
     if(!email || !pass) return response.error(req, res, 400, 'No se recibieron los datos esperados', 'Algún dato requerido no fue introducido')
 
-    const userFound = await User.findOne({email}).populate('roles')
+    const userFound = await User.findOne({email}).populate('role')
     
     if(!userFound) return response.error(req, res, 400, 'Usuario o Contraseña incorrecta', 'User not found')
 

@@ -11,7 +11,7 @@ router.get('/', (req, res)=>{
         response.success(req, res, 200, usersList)
     })
     .catch(e =>{
-        response.error(req, res, 400, 'Error en GET', e)
+        response.error(req, res, 400, 'Error interno', e)
     })
 })
 

@@ -12,6 +12,7 @@ exports.addUser = (data)=>{
                 user: data.user,
                 pass: data.pass,
                 email: data.email,
+                role: data.role,
                 date: new Date()
             }
 
@@ -28,19 +29,34 @@ exports.getUsers = ()=>{
 }
 
 exports.updateUserById = async (req, res)=>{
-    if(Object.entries(req.body).length === 0)
-    return res.status(400).json({message: 'No se recibieron datos para modificar'})
+     
+    if(Object.entries(req.body).length === 0){
+          
+        return res.status(400).json({message: 'No se recibieron datos para modificar'})
+
+    }
     
-    const user = await User.findOne({user: req.body.user})
+    /*const user = await User.findOne({user: req.body.user})
     if(user) return res.status(400).json({message: 'User exist!'})
 
     const email = await User.findOne({email: req.body.email})
     if(email) return res.status(400).json({message: 'Mail exist!'})
+    */
 
     req.body.pass = await User.encryptPass(req.body.pass)
+    
+
+    const fullData = {
+        user: req.body.user,
+        pass: req.body.pass,
+        email: req.body.email,
+        role: req.body.role
+    }
+    console.log(fullData)
+    console.log(req.params.idUser)
 
     try {
-        const updated = await User.findByIdAndUpdate(req.params.idUser, req.body, {new: true})
+        const updated = await User.findByIdAndUpdate(req.params.idUser, fullData, {new: true})
         response.success(req, res, 200, 'Actualizado Correctamente', updated) 
     } catch (error) {
         response.error(req, res, 400, 'Algo salio mal al intentar actualizar, intentelo de nuevo', error)

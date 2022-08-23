@@ -36,6 +36,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Usuario</th>
                                 <th scope="col">E-mail</th>
+                                <th scope="col">Rol</th>
                                 <th scope="col">Acción</th>
                             </tr>
                         </thead>
@@ -51,18 +52,19 @@
                         <span class="input-group-text">Usuario:</span>
                         <input type="text" class="form-control" name="user" id="user">
                     </div>
-                    <div class="input-group mb-3 mt-3">
-                        <span class="input-group-text">Password:</span>
-                        <input type="text" class="form-control" name="pass" id="pass">
-                    </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Correo:</span>
                         <input type="email" class="form-control" name="email" id="email">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 mt-3">
+                        <span class="input-group-text">Contraseña:</span>
+                        <input type="text" class="form-control" name="pass" id="pass">
+                    </div>      
+                    <div class="input-group mb-3 mt-3">
                         <span class="input-group-text">Rol:</span>
-                        <input type="text" class="form-control" name="rol" id="rol">
-                    </div>
+                        <input type="text" class="form-control" name="role" id="role" placeholder="admin / user">
+                    </div>               
+                    
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <input type="submit" id="btn" value="Registrar Usuario" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -74,6 +76,7 @@
                         <th scope="row">1</th>
                         <td>admin</td>
                         <td>admin@correo.com</td>
+                        <td>admin</td>
                         <td>
                             <button class="btn btn-info btn-sm">
                                 <i class="bi bi-pencil"></i>
